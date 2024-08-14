@@ -29,16 +29,17 @@ public class TarefaDAO implements Sujeito {
     }
 
     @Override
-    public void notificarObservadores(Tarefa tarefa, String acao) {
+    public void notificarObservadores(TarefaDTO tarefaDTO) {
         for (Observador observador : observadores) {
-            observador.atualizar(tarefa, acao);
+            observador.atualizar(tarefaDTO);
             //Notifica todos os observadores sobre uma ação realizada em uma tarefa.
             //A ação pode ser, por exemplo, "adicionada", "atualizada" ou "deletada".
         }
     }
 
     // Método para adicionar tarefa
-    public void adicionarTarefa(Tarefa tarefa) {
+    public void adicionarTarefa(TarefaDTO tarefaDTO) {
+    	Tarefa tarefa = new Tarefa(tarefaDTO.getId(), tarefaDTO.getTitulo(), tarefaDTO.getDescricao(), tarefaDTO.getPrioridade(), tarefaDTO.isConcluida());
         String sql = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {//evitar ataques de SQL injection, valores substituem ?
             stmt.setString(1, tarefa.getTitulo());
@@ -47,7 +48,8 @@ public class TarefaDAO implements Sujeito {
             stmt.setBoolean(4, tarefa.isConcluida());
             stmt.executeUpdate();
             System.out.println("Tarefa adicionada com sucesso!");
-            notificarObservadores(tarefa, "adicionada"); //.
+            tarefaDTO.setAcao("adicionada");
+            notificarObservadores(tarefaDTO); //.
         } catch (SQLException e) {
             System.out.println("Falha ao adicionar a tarefa.");
             e.printStackTrace();
@@ -55,7 +57,8 @@ public class TarefaDAO implements Sujeito {
     }
 
     // Método para atualizar tarefa
-    public void atualizarTarefa(Tarefa tarefa) {
+    public void atualizarTarefa(TarefaDTO tarefaDTO) {
+    	Tarefa tarefa = new Tarefa(tarefaDTO.getId(), tarefaDTO.getTitulo(), tarefaDTO.getDescricao(), tarefaDTO.getPrioridade(), tarefaDTO.isConcluida());
         String sql = "UPDATE tarefas SET titulo = ?, descricao = ?, prioridade = ?, concluida = ? WHERE id = ?";
         //utilizada para atualizar os dados de uma tarefa existente, identificada por seu id.
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) { //definir os novos valores da tarefa
@@ -66,7 +69,8 @@ public class TarefaDAO implements Sujeito {
             stmt.setInt(5, tarefa.getId());
             stmt.executeUpdate();
             System.out.println("Tarefa atualizada com sucesso!");
-            notificarObservadores(tarefa, "atualizada");
+            tarefaDTO.setAcao("atualizada");
+            notificarObservadores(tarefaDTO);
         } catch (SQLException e) {
             System.out.println("Falha ao atualizar a tarefa.");
             e.printStackTrace();
@@ -74,14 +78,16 @@ public class TarefaDAO implements Sujeito {
     }
 
     // Método para deletar tarefa
-    public void deletarTarefa(int idDaTarefa) {
+    public void deletarTarefa(TarefaDTO tarefaDTO) {
+    	int idDaTarefa = tarefaDTO.getId();
         String sql = "DELETE FROM tarefas WHERE id = ?";
         //deletar uma tarefa específica usando seu id.
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, idDaTarefa);  //Configura o id da tarefa que será deletada.
+			stmt.setInt(1, idDaTarefa);  //Configura o id da tarefa que será deletada.
             stmt.executeUpdate();
             System.out.println("Tarefa deletada com sucesso!");
-            notificarObservadores(null, "deletada");
+            tarefaDTO.setAcao("deletada");
+            notificarObservadores(tarefaDTO);
         } catch (SQLException e) {
             System.out.println("Falha ao deletar a tarefa.");
             e.printStackTrace();

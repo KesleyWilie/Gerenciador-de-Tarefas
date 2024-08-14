@@ -15,9 +15,9 @@ public class Tarefa {
         this.concluida = concluida;
     }
 
-    public Tarefa(String titulo, String descricao, Prioridade prioridade) {
+    /*public Tarefa(String titulo, String descricao, Prioridade prioridade) {
         this(0, titulo, descricao, prioridade, false);
-    }
+    }*/
 
     // Getters e Setters
     public int getId() { return id; }

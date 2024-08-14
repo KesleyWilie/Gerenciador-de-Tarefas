@@ -1,8 +1,5 @@
 package Model;
 
-import Model.Tarefa;
-import Model.TarefaDAO;
-import Model.Prioridade;
 import View.ObservadorTarefa;
 
 public class Main {//testando
@@ -14,13 +11,15 @@ public class Main {//testando
         tarefaDAO.adicionarObservador(observadorTarefa);
 
         // Adicionando uma tarefa para testar
-        tarefaDAO.adicionarTarefa(new Tarefa("Exemplo de Tarefa 3", "testar conexão", Prioridade.BAIXA));
+       tarefaDAO.adicionarTarefa(new TarefaDTO(2, "Tarefa Atualizada", "Testar atualização", Prioridade.BAIXA, true));
 
         // Atualizando uma tarefa para testar
-        Tarefa tarefaExistente = new Tarefa(2, "Tarefa Atualizada", "Testar atualização", Prioridade.BAIXA, true);
-        tarefaDAO.atualizarTarefa(tarefaExistente);
+        //TarefaDTO tarefaExistente = new TarefaDTO(2, "Tarefa Atualizada", "Testar atualização", Prioridade.BAIXA, true);
+        //tarefaDAO.atualizarTarefa(tarefaExistente);
 
         // Deletando uma tarefa para testar
-        tarefaDAO.deletarTarefa(3);
+        //tarefaExistente = new TarefaDTO();
+        //tarefaExistente.setId(3);
+        //tarefaDAO.deletarTarefa(tarefaExistente);
     }
 }

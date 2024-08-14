@@ -1,9 +1,9 @@
 package Observer;
 
-import Model.Tarefa;
+import Model.TarefaDTO;
 
 public interface Sujeito {
     void adicionarObservador(Observador observador);
     void removerObservador(Observador observador);
-    void notificarObservadores(Tarefa tarefa, String acao);
+    void notificarObservadores(TarefaDTO tarefaDTO);
 }

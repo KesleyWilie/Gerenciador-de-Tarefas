@@ -1,7 +1,7 @@
 package Observer;
 
-import Model.Tarefa;
+import Model.TarefaDTO;
 
 public interface Observador {
-    void atualizar(Tarefa tarefa, String acao);
+    void atualizar(TarefaDTO tarefa);
 }
