@@ -19,7 +19,7 @@ public class Main {//testando
 
         // Deletando uma tarefa para testar
         tarefaExistente = new TarefaDTO();
-        //tarefaExistente.setId(3);
-        //tarefaDAO.deletarTarefa(tarefaExistente);
+        tarefaExistente.setId(3);
+        tarefaDAO.deletarTarefa(tarefaExistente);
     }
 }
