@@ -9,12 +9,12 @@ public class TarefaDTO {
     private Prioridade prioridade;
     private boolean concluida;
 
-    public TarefaDTO(int id, String titulo, String descricao, Prioridade prioridade, boolean concluida) {
-        this.id = id;
-        this.titulo = titulo;
-        this.descricao = descricao;
-        this.prioridade = prioridade;
-        this.concluida = concluida;
+    public TarefaDTO(TarefaDTOBuilder builder) {
+        this.id = builder.getId();
+        this.titulo = builder.getTitulo();
+        this.descricao = builder.getDescricao();
+        this.prioridade = builder.getPrioridade();
+        this.concluida = builder.isConcluida();
     }
 
     public TarefaDTO() {

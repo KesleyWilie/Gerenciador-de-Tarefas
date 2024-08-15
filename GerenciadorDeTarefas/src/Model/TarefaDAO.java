@@ -39,8 +39,19 @@ public class TarefaDAO implements Sujeito {
 
     // Método para adicionar tarefa
     public void adicionarTarefa(TarefaDTO tarefaDTO) {
-    	Tarefa tarefa = new Tarefa(tarefaDTO.getId(), tarefaDTO.getTitulo(), tarefaDTO.getDescricao(), tarefaDTO.getPrioridade(), tarefaDTO.isConcluida());
-        String sql = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, ?)";
+    	
+    	//Se usarmos o padrao Builder na classe Tarefa ficaria desse modo:
+    	/*Tarefa tarefa = new Tarefa.TarefaBuilder()
+    			.setId(tarefaDTO.getId())
+    			.setTitulo(tarefaDTO.getTitulo())
+    			.setDescricao(tarefaDTO.getDescricao())
+    			.setPrioridade(tarefaDTO.getPrioridade())
+    			.setConcluida(tarefaDTO.isConcluida())
+    			.build();*/
+    	
+    	Tarefa tarefa = new Tarefa(tarefaDTO);
+    	
+    	String sql = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {//evitar ataques de SQL injection, valores substituem ?
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
@@ -58,7 +69,18 @@ public class TarefaDAO implements Sujeito {
 
     // Método para atualizar tarefa
     public void atualizarTarefa(TarefaDTO tarefaDTO) {
-    	Tarefa tarefa = new Tarefa(tarefaDTO.getId(), tarefaDTO.getTitulo(), tarefaDTO.getDescricao(), tarefaDTO.getPrioridade(), tarefaDTO.isConcluida());
+    	
+    	//Se usarmos o padrao Builder na classe Tarefa ficaria desse modo:
+    	/*Tarefa tarefa = new Tarefa.TarefaBuilder()
+    			.setId(tarefaDTO.getId())
+    			.setTitulo(tarefaDTO.getTitulo())
+    			.setDescricao(tarefaDTO.getDescricao())
+    			.setPrioridade(tarefaDTO.getPrioridade())
+    			.setConcluida(tarefaDTO.isConcluida())
+    			.build();*/
+    	
+    	Tarefa tarefa = new Tarefa(tarefaDTO);
+    	
         String sql = "UPDATE tarefas SET titulo = ?, descricao = ?, prioridade = ?, concluida = ? WHERE id = ?";
         //utilizada para atualizar os dados de uma tarefa existente, identificada por seu id.
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) { //definir os novos valores da tarefa
