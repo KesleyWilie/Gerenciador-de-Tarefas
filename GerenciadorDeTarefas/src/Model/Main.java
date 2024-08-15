@@ -1,8 +1,5 @@
 package Model;
 
-import Model.Tarefa;
-import Model.TarefaDAO;
-import Model.Prioridade;
 import View.ObservadorTarefa;
 
 public class Main {//testando
