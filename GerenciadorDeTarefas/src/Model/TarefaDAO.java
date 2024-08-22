@@ -115,6 +115,29 @@ public class TarefaDAO implements Sujeito {
             e.printStackTrace();
         }
     }
+    public List<TarefaDTO> listarTarefas() {
+        List<TarefaDTO> tarefas = new ArrayList<>();
+        String sql = "SELECT * FROM tarefas";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                TarefaDTO tarefaDTO = new TarefaDTOBuilder()
+                        .setId(rs.getInt("id"))
+                        .setTitulo(rs.getString("titulo"))
+                        .setDescricao(rs.getString("descricao"))
+                        .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
+                        .setConcluida(rs.getBoolean("concluida"))
+                        .build();
+                tarefas.add(tarefaDTO);
+            }
+        } catch (SQLException e) {
+            System.out.println("Falha ao listar as tarefas.");
+            e.printStackTrace();
+        }
+        return tarefas;
+    }
 }
 
 
@@ -125,3 +148,7 @@ public class TarefaDAO implements Sujeito {
   Integração com o Observer: Ao implementar o padrão Observer, a TarefaDAO garante que outros componentes da aplicação 
   (por exemplo, a interface gráfica) sejam atualizados automaticamente sempre que uma tarefa é criada, atualizada ou excluída.
 */
+
+
+
+
