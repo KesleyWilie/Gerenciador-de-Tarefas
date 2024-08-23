@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import View.TelaGenericaTarefas;
+import View.TelaEditarTarefa;
 
 public class OuvinteSalvar implements ActionListener{
 
-	public OuvinteSalvar(TelaGenericaTarefas tela) {
+	public OuvinteSalvar(TelaEditarTarefa tela) {
 		this.tela=tela;
 	}
-	private TelaGenericaTarefas tela;
+	private TelaEditarTarefa tela;
 	private String tituloTarefa;
 	private String descricaoTarefa;
 	private String prioridadeTarefa;

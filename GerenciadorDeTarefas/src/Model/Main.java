@@ -1,9 +1,11 @@
 package Model;
 
 import View.ObservadorTarefa;
+import View.TelaAdicionarTarefas;
 
 public class Main {//testando
     public static void main(String[] args) {
+    	new TelaAdicionarTarefas("Adicionar Tarefa");
         TarefaDAO tarefaDAO = new TarefaDAO();
         ObservadorTarefa observadorTarefa = new ObservadorTarefa();
 
