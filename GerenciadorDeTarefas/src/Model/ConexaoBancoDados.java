@@ -46,8 +46,9 @@ public class ConexaoBancoDados { //Singleton
     	titulo VARCHAR(255) NOT NULL,
     	descricao TEXT,
     	prioridade ENUM('BAIXA', 'MEDIA', 'ALTA') NOT NULL,
-    	concluida BOOLEAN NOT NULL DEFAULT FALSE
+    	concluida ENUM('Andamento', 'Concluida') DEFAULT 'Andamento'
 	);
+    
 
 --------------------------------------------------------------------
 Passo a passo pra quem quiser testar aí:
