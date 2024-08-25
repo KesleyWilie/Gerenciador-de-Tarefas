@@ -1,11 +1,11 @@
 package Model;
 
-public class Tarefa {
+public class Tarefa implements EstadoDaTarefa, PrototypeTarefa{
     private int id;
     private String titulo;
     private String descricao;
     private Prioridade prioridade;
-    private boolean concluida;
+    private Estado concluida;
     
     public Tarefa(TarefaDTO tarefa) {
     	this.id = tarefa.getId();
@@ -14,6 +14,7 @@ public class Tarefa {
         this.prioridade = tarefa.getPrioridade();
         this.concluida = tarefa.isConcluida();
     }
+    
 
     //Usariamos esse construtor se o padrao Builder fosse aplicado na classe Tarefa.
     /*private Tarefa(TarefaBuilder builder) {
@@ -30,16 +31,33 @@ public class Tarefa {
 
     // Getters e Setters Tarefa
     public int getId() { return id; }
-    public String getTitulo() { return titulo; }
+
+	public String getTitulo() { return titulo; }
     public String getDescricao() { return descricao; }
     public Prioridade getPrioridade() { return prioridade; }
-    public boolean isConcluida() { return concluida; }
+    public Estado isConcluida() { return concluida; }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {this.id = id; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public void setPrioridade(Prioridade prioridade) { this.prioridade = prioridade; }
-    public void setConcluida(boolean concluida) { this.concluida = concluida; }
+    public void setConcluida(Estado concluida) { this.concluida = concluida; }
+
+	@Override
+	public void mudarEstado() {
+		if(concluida.equals(Estado.Andamento)) {
+			this.concluida = Estado.Concluida;
+		}
+		else {
+			this.concluida = Estado.Andamento;
+		}
+		
+	}
+
+	@Override
+	public PrototypeTarefa clonar(TarefaDTO tarefa) {
+		return new Tarefa(tarefa);
+	}
     
     //Padrao builder na Tarefa
     /*public static class TarefaBuilder {
