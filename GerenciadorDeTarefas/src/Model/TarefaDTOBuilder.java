@@ -8,7 +8,7 @@ public class TarefaDTOBuilder {
     private String titulo;
     private String descricao;
     private Prioridade prioridade;
-    private boolean concluida;
+    private Estado concluida = Estado.Andamento;
     
         
     public TarefaDTOBuilder setId(int id) {
@@ -31,7 +31,7 @@ public class TarefaDTOBuilder {
         return this;
     }
 
-    public TarefaDTOBuilder setConcluida(boolean concluida) {
+    public TarefaDTOBuilder setConcluida(Estado concluida) {
         this.concluida = concluida;
         return this;
     }
@@ -62,7 +62,7 @@ public class TarefaDTOBuilder {
 		return prioridade;
 	}
 
-	public boolean isConcluida() {
+	public Estado isConcluida() {
 		return concluida;
 	}
 

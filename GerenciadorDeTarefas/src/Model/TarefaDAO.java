@@ -56,7 +56,7 @@ public class TarefaDAO implements Sujeito {
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getPrioridade().name());
-            stmt.setBoolean(4, tarefa.isConcluida());
+            stmt.setString(4, tarefa.isConcluida().name());
             stmt.executeUpdate();
             System.out.println("Tarefa adicionada com sucesso!");
             tarefaDTO.setAcao("adicionada");
@@ -87,7 +87,7 @@ public class TarefaDAO implements Sujeito {
             stmt.setString(1, tarefa.getTitulo());
             stmt.setString(2, tarefa.getDescricao());
             stmt.setString(3, tarefa.getPrioridade().name());
-            stmt.setBoolean(4, tarefa.isConcluida());
+            stmt.setString(4, tarefa.isConcluida().name());
             stmt.setInt(5, tarefa.getId());
             stmt.executeUpdate();
             System.out.println("Tarefa atualizada com sucesso!");
@@ -128,7 +128,7 @@ public class TarefaDAO implements Sujeito {
                         .setTitulo(rs.getString("titulo"))
                         .setDescricao(rs.getString("descricao"))
                         .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
-                        .setConcluida(rs.getBoolean("concluida"))
+                        .setConcluida(Estado.valueOf(rs.getString("concluida")))
                         .build();
                 tarefas.add(tarefaDTO);
             }
@@ -138,6 +138,93 @@ public class TarefaDAO implements Sujeito {
         }
         return tarefas;
     }
+    
+    public void alterarEstadoDaTarefa(TarefaDTO tarefaDTO) {
+    	Tarefa tarefa = recuperarTarefa(tarefaDTO);
+    	if(tarefa!=null) {
+	    	
+	    	tarefa.mudarEstado();
+	    	
+	        String sql = "UPDATE tarefas SET titulo = ?, descricao = ?, prioridade = ?, concluida = ? WHERE id = ?";
+	        //utilizada para atualizar os dados de uma tarefa existente, identificada por seu id.
+	        try (PreparedStatement stmt = conexao.prepareStatement(sql)) { //definir os novos valores da tarefa
+	            stmt.setString(1, tarefa.getTitulo());
+	            stmt.setString(2, tarefa.getDescricao());
+	            stmt.setString(3, tarefa.getPrioridade().name());
+	            stmt.setString(4, tarefa.isConcluida().name());
+	            stmt.setInt(5, tarefa.getId());
+	            stmt.executeUpdate();
+	            System.out.println("Tarefa atualizada com sucesso!");
+	            tarefaDTO.setAcao("atualizada");
+	            notificarObservadores(tarefaDTO);
+	        } catch (SQLException e) {
+	            System.out.println("Falha ao atualizar a tarefa.");
+	            e.printStackTrace();
+	        }
+    	}
+	}
+    
+    public void clonarTarefa(TarefaDTO tarefaDTO) {
+    	Tarefa originalTarefa = recuperarTarefa(tarefaDTO);
+    	if(originalTarefa!=null) {
+	    	Tarefa tarefaClone = (Tarefa) originalTarefa.clonar(tarefaDTO);
+	    	
+	    	String sql = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, ?)";
+	        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {//evitar ataques de SQL injection, valores substituem ?
+	            stmt.setString(1, tarefaClone.getTitulo());
+	            stmt.setString(2, tarefaClone.getDescricao());
+	            stmt.setString(3, tarefaClone.getPrioridade().name());
+	            stmt.setString(4, tarefaClone.isConcluida().name());
+	            stmt.executeUpdate();
+	            System.out.println("Tarefa adicionada com sucesso!");
+	            tarefaDTO.setAcao("adicionada");
+	            notificarObservadores(tarefaDTO); //.
+	        } catch (SQLException e) {
+	            System.out.println("Falha ao adicionar a tarefa.");
+	            e.printStackTrace();
+	        }
+    	}
+    	
+    	
+	}
+    
+    public Tarefa recuperarTarefa(TarefaDTO tarefa) {
+    	//Falta recuperar a tarefa no banco de dados
+        String sql = "SELECT * FROM tarefas";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                TarefaDTO tarefaDTO = new TarefaDTOBuilder()
+                        .setId(rs.getInt("id"))
+                        .setTitulo(rs.getString("titulo"))
+                        .setDescricao(rs.getString("descricao"))
+                        .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
+                        .setConcluida(Estado.valueOf(rs.getString("concluida")))
+                        .build();
+                if(tarefaDTO.getId()==tarefa.getId()) {
+                	return new Tarefa(tarefaDTO);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Falha ao listar as tarefas.");
+            e.printStackTrace();
+        }
+    	return null;
+    	
+    }
+    
+    /*public void adicionarClone(Tarefa tarefa) {
+    	adicionarTarefa(new TarefaDTOBuilder()
+   			.setId(tarefa.getId())
+   			.setTitulo(tarefa.getTitulo())
+   			.setDescricao(tarefa.getDescricao())
+   			.setPrioridade(tarefa.getPrioridade())
+   			.setConcluida(tarefa.isConcluida())
+   			.build());
+	}*/
+    
 }
 
 

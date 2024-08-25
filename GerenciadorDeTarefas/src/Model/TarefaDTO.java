@@ -7,7 +7,7 @@ public class TarefaDTO {
     private String titulo;
     private String descricao;
     private Prioridade prioridade;
-    private boolean concluida;
+    private Estado concluida;
 
     public TarefaDTO(TarefaDTOBuilder builder) {
         this.id = builder.getId();
@@ -25,13 +25,13 @@ public class TarefaDTO {
     public String getTitulo() { return titulo; }
     public String getDescricao() { return descricao; }
     public Prioridade getPrioridade() { return prioridade; }
-    public boolean isConcluida() { return concluida; }
+    public Estado isConcluida() { return concluida; }
 
     public void setId(int id) { this.id = id; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
     public void setPrioridade(Prioridade prioridade) { this.prioridade = prioridade; }
-    public void setConcluida(boolean concluida) { this.concluida = concluida; }
+    public void setConcluida(Estado concluida) { this.concluida = concluida; }
 
 	public String getAcao() {
 		return acao;
