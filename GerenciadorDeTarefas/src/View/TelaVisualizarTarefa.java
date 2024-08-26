@@ -2,6 +2,10 @@ package View;
 
 import java.awt.Font;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +22,7 @@ public class TelaVisualizarTarefa extends JFrame{
 	private JTextField textoTitulo;
 	private JTextArea textoDescricao;
 	private JComboBox<String> prioridade;
+	private JButton botaoVoltar; 
 
 	public TelaVisualizarTarefa(String titulo, TarefaDTO tarefa) {
 		this.tarefa = tarefa;
@@ -34,6 +39,7 @@ public class TelaVisualizarTarefa extends JFrame{
 		addTextoDescricao();
 		addPrioridade();
 		addComboPrioridade();
+		addCancelar();
 		textoTitulo.setText(tarefa.getTitulo());
 		textoDescricao.setText(tarefa.getDescricao());
 		prioridade.setSelectedItem(tarefa.getPrioridade());
@@ -90,6 +96,14 @@ public class TelaVisualizarTarefa extends JFrame{
 		add(prioridade);
 	}
 
+	private void addCancelar() {
+        botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setBounds(205, 395, 120, 40);
+		OuvinteBotao ouvinte = new OuvinteBotao();
+		botaoVoltar.addActionListener(ouvinte);
+        add(botaoVoltar);
+	}
+
 
 	public JTextField getTextoTitulo() {
 		return textoTitulo;
@@ -100,5 +114,16 @@ public class TelaVisualizarTarefa extends JFrame{
 	public JComboBox<String> getPrioridade() {
 		return prioridade;
 	}
+
+
+	private class OuvinteBotao implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			if(e.getSource() == botaoVoltar){
+				dispose();
+				new TelaGerenciadorDeTarefas("Gerenciador de Tarefas");
+			}
+				
+		}
+ }
 
 }
