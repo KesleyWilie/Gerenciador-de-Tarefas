@@ -10,15 +10,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import Ouvintes.OuvinteSalvar;
-
 public class TelaAdicionarTarefas extends JFrame {
 	
 	private JTextField textoTitulo;
 	private JTextArea textoDescricao;
 	private String[] ArrayPrio = new String[3];
 	private JComboBox<String> prioridade;
-	private JLabel jlTarefa;
 	private JButton adicionarButton;
 
 	public TelaAdicionarTarefas(String titulo) {
