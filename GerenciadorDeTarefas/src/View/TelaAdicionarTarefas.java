@@ -10,6 +10,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+/**
+ * Criar ouvinte para implementar a lógica de instanciar uma nova tarefa
+ * e joga-la para o BCD.
+ */
+
 public class TelaAdicionarTarefas extends JFrame {
 	
 	private JTextField textoTitulo;

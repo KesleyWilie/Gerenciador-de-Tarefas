@@ -14,7 +14,12 @@ import javax.swing.table.DefaultTableModel;
 
 import Ouvintes.OuvinteAdicionar;
 
-public class TelaGerenciadorDeTarefas extends JFrame{
+/**Necessita criar um método para popular a tabela, 
+	 * atráves de um array de tarefas ou outra forma de 
+	 * trazer as tarefas do Banco de dados.
+	 * */
+
+public class TelaGerenciadorDeTarefas extends JFrame {
 
 	public TelaGerenciadorDeTarefas(String titulo) {
 		setTitle(titulo);

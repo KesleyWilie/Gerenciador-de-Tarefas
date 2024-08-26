@@ -10,9 +10,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Model.TarefaDTO;
 import Ouvintes.OuvinteSalvar;
 
+/**
+ * Criar ouvinte para implementar a lógica de editar a tarefa selecionada.
+ */
+
 public class TelaEditarTarefa extends JFrame{
+
+	private TarefaDTO tarefa;
 	
 	private JTextField textoTitulo;
 	private JTextArea textoDescricao;
@@ -21,7 +28,8 @@ public class TelaEditarTarefa extends JFrame{
 	private JLabel jlTarefa;
 	private JButton botaoSalvar;
 
-	public TelaEditarTarefa(String titulo) {
+	public TelaEditarTarefa(String titulo, TarefaDTO tarefa) {
+		this.tarefa = tarefa;
 		setTitle(titulo);
 		setSize(500,500);
 		setLayout(null);
@@ -39,6 +47,7 @@ public class TelaEditarTarefa extends JFrame{
 		addSalvar();
 		setVisible(true);
 	}
+
 	private void addEditarTarefa() {
 		jlTarefa = new JLabel("Editar Tarefa");
 		jlTarefa.setBounds(0,0,500,100);
@@ -75,14 +84,17 @@ public class TelaEditarTarefa extends JFrame{
 	private void addTextoTitulo() {
         textoTitulo = new JTextField();
         textoTitulo.setBounds(130, 120, 330, 30);
+		textoTitulo.setText(tarefa.getTitulo());
         add(textoTitulo);
     }
+
 	private void addTextoDescricao() {		
         textoDescricao = new JTextArea();
         JScrollPane painelDesc = new JScrollPane(textoDescricao);
         textoDescricao.setLineWrap(true);
         textoDescricao.setWrapStyleWord(true);
         painelDesc.setBounds(130, 180, 330, 90);
+		textoDescricao.setText(tarefa.getDescricao());
         add(painelDesc);
     }
 	
@@ -92,11 +104,30 @@ public class TelaEditarTarefa extends JFrame{
         prioridade.setHorizontalAlignment(JLabel.LEFT);
         add(prioridade);
 	}
+
+
 	private void addComboPrioridade() {
-		ArrayPrio[0]="Alta";
-		ArrayPrio[1]="Media";
-		ArrayPrio[2]="Baixa";
+		String tarefaPrioridade = tarefa.getPrioridade().toString();
+		int indice = -1;
+		switch (tarefaPrioridade) {
+			case "ALTA":
+				indice = 0;
+				break;
+			case "MEDIA":
+				indice = 1;
+				break;
+			case "BAIXA":
+				indice = 2;
+				break;
+			default:
+				break;
+		}
+
+		ArrayPrio[0]="ALTA";
+		ArrayPrio[1]="MEDIA";
+		ArrayPrio[2]="BAIXA";
 		prioridade = new JComboBox<String>(ArrayPrio);
+		prioridade.setSelectedIndex(indice);
 		prioridade.setBounds(130, 300,330,30);
 		add(prioridade);
 	}
