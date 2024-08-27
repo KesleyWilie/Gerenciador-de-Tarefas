@@ -10,8 +10,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Controller.OuvinteTelaEditarTarefa;
 import Model.TarefaDTO;
-import Ouvintes.OuvinteSalvar;
 
 /**
  * Criar ouvinte para implementar a lógica de editar a tarefa selecionada.
@@ -26,7 +26,9 @@ public class TelaEditarTarefa extends JFrame{
 	private String[] ArrayPrio = new String[3];
 	private JComboBox<String> prioridade;
 	private JLabel jlTarefa;
+
 	private JButton botaoSalvar;
+	private JButton botaoCancelar;
 
 	public TelaEditarTarefa(String titulo, TarefaDTO tarefa) {
 		this.tarefa = tarefa;
@@ -58,7 +60,7 @@ public class TelaEditarTarefa extends JFrame{
 	private void addSalvar() {
         botaoSalvar = new JButton("Salvar");
         botaoSalvar.setBounds(340, 395, 120, 40);
-        OuvinteSalvar ouvinte = new OuvinteSalvar(this);
+        OuvinteTelaEditarTarefa ouvinte = new OuvinteTelaEditarTarefa(this);
         botaoSalvar.addActionListener(ouvinte);
         add(botaoSalvar);
 	}
@@ -79,6 +81,8 @@ public class TelaEditarTarefa extends JFrame{
 	private void addCancelar() {
         JButton botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(205, 395, 120, 40);
+		OuvinteTelaEditarTarefa ouvinte = new OuvinteTelaEditarTarefa(this);
+		botaoCancelar.addActionListener(ouvinte);
         add(botaoCancelar);
 	}
 	private void addTextoTitulo() {
@@ -144,6 +148,15 @@ public class TelaEditarTarefa extends JFrame{
 	public JButton getBotaoSalvar() {
 		return botaoSalvar;
 	}
+
+	public JButton getBotaoCancelar() {
+		return botaoCancelar;
+	}
+
+	public TarefaDTO getTarefa() {
+		return tarefa;
+	}
+	
 	
 	
 
