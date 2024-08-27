@@ -10,10 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-/**
- * Criar ouvinte para implementar a lógica de instanciar uma nova tarefa
- * e joga-la para o BCD.
- */
+import Controller.OuvinteTelaAdicionarTarefas;
 
 public class TelaAdicionarTarefas extends JFrame {
 	
@@ -22,6 +19,7 @@ public class TelaAdicionarTarefas extends JFrame {
 	private String[] ArrayPrio = new String[3];
 	private JComboBox<String> prioridade;
 	private JButton adicionarButton;
+	private JButton botaoCancelar;
 
 	public TelaAdicionarTarefas(String titulo) {
 		setTitle(titulo);
@@ -66,12 +64,16 @@ public class TelaAdicionarTarefas extends JFrame {
 	private void addTarefa() {
         adicionarButton = new JButton("Adicionar");
         adicionarButton.setBounds(340, 395, 120, 40);
+		OuvinteTelaAdicionarTarefas ouvinte = new OuvinteTelaAdicionarTarefas(this);
+		adicionarButton.addActionListener(ouvinte);
         add(adicionarButton);
 	}
 	
 	private void addCancelar() {
-        JButton botaoCancelar = new JButton("Cancelar");
+        botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(205, 395, 120, 40);
+		OuvinteTelaAdicionarTarefas ouvinte = new OuvinteTelaAdicionarTarefas(this);
+		botaoCancelar.addActionListener(ouvinte);
         add(botaoCancelar);
 	}
 	private void addTextoTitulo() {
@@ -116,6 +118,12 @@ public class TelaAdicionarTarefas extends JFrame {
 	public JButton getAdicionarButton() {
 		return adicionarButton;
 	}
+
+	public JButton getBotaoCancelar() {
+		return botaoCancelar;
+	}
+
+	
 	
 	
 }
