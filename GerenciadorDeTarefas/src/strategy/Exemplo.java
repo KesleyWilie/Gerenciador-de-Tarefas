@@ -28,7 +28,7 @@ public class Exemplo {
 		List<TarefaDTO> tarefasFiltradas = contexto.filtrar();
 		// Atualizar a interface com tarefasFiltradas
 	*/
-	
+
 	
 	//exemplo na tela:
 	/*-----------------------------------------------------------------------------------------------------------------------

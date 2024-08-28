@@ -12,4 +12,3 @@ public class FiltroConcluidas implements FiltroTarefa {
         return dao.obterTarefasPorEstado("CONCLUIDA");
     }
 }
-
