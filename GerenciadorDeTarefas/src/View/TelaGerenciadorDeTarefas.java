@@ -116,18 +116,42 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 
 		add(botaoClonar);
  	}
-	 
-	 //ouvinte aqui so para testes, provalvemente vai ter q fazer mais ouvintes 
-	 private class OuvinteBotao implements ActionListener {
-			public void actionPerformed(ActionEvent e) {
-				int linhaSelecionada=tabela.getSelectedRow();
-				if(linhaSelecionada==-1)
-					JOptionPane.showMessageDialog(null, "Selecione uma tarefa");
-				
-				else {
-					
-				}
-			}
-	 }
 
+	public JTable getTabela() {
+		return tabela;
+	}
+
+	public DefaultTableModel getModelo() {
+		return modelo;
+	}
+
+	public JScrollPane getPainelTabela() {
+		return painelTabela;
+	}
+
+	public JButton getBotaoAdicionar() {
+		return botaoAdicionar;
+	}
+
+	public JButton getBotaoRemover() {
+		return botaoRemover;
+	}
+
+	public JButton getBotaoEditar() {
+		return botaoEditar;
+	}
+
+	public JButton getBotaoDetalhar() {
+		return botaoDetalhar;
+	}
+
+	public JButton getBotaoConcluir() {
+		return botaoConcluir;
+	}
+
+	public JButton getBotaoClonar() {
+		return botaoClonar;
+	}
+
+	
 }

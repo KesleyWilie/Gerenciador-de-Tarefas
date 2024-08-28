@@ -22,7 +22,7 @@ public class PopuladorTabelaTarefas {
 		this.scroll = scroll;
     }
 
-    public void popularTabelaTarefas(){
+    public void popularTabelaTarefas() {
         //EXEMPLO
         //List<Tarefa> tarefas = recebe do BD;
 
