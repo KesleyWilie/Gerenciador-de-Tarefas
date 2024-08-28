@@ -13,10 +13,6 @@ import javax.swing.JTextField;
 import Controller.OuvinteTelaEditarTarefa;
 import Model.TarefaDTO;
 
-/**
- * Criar ouvinte para implementar a lógica de editar a tarefa selecionada.
- */
-
 public class TelaEditarTarefa extends JFrame{
 
 	private TarefaDTO tarefa;

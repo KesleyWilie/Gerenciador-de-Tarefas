@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import Ouvintes.OuvinteAdicionar;
 
 /**Necessita criar um método para popular a tabela, 
 	 * atráves de um array de tarefas ou outra forma de 
@@ -20,6 +20,19 @@ import Ouvintes.OuvinteAdicionar;
 	 * */
 
 public class TelaGerenciadorDeTarefas extends JFrame {
+
+
+	private JTable tabela;
+	private DefaultTableModel modelo;
+	private JScrollPane painelTabela;
+
+
+	private JButton botaoAdicionar;
+	private JButton botaoRemover;
+	private JButton botaoEditar;
+	private JButton botaoDetalhar;
+	private JButton botaoConcluir;
+	private JButton botaoClonar;
 
 	public TelaGerenciadorDeTarefas(String titulo) {
 		setTitle(titulo);
@@ -34,55 +47,71 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		addRemover();
 		addEditar();
 		addDetalhar();
+		addConcluir();
+		addClonar();
 		setVisible(true);
 	}
-	private JTable tabela;
+	
 	private void addGerenciador() {
 		JLabel jlPerfil = new JLabel("Gerenciador de Tarefas");
 		jlPerfil.setBounds(0,0,700,100);
 		jlPerfil.setHorizontalAlignment(JLabel.CENTER);
-		jlPerfil.setFont(new Font("Arial",Font.BOLD,30));
+		jlPerfil.setFont(new Font("Arial",Font.PLAIN,30));
 		add(jlPerfil);
 	}
 
 	private void addTabelaTarefas() {
-		DefaultTableModel modelo = new DefaultTableModel();
-		modelo.addColumn("Tarefas");		
-		modelo.addColumn("Prioridade");
-		modelo.addColumn("Em andamento/Concluido(a)");
+		modelo = new DefaultTableModel();
+		modelo.setColumnIdentifiers(new String[] {"Tarefas, Prioridade, Em andamento/Concluido(a)"});
 		tabela = new JTable(modelo);
-		JScrollPane painelTabela = new JScrollPane(tabela);
+		tabela.setFont(new Font("Arial", Font.PLAIN, 17));
+		painelTabela = new JScrollPane(tabela);
+		painelTabela.getViewport().setBackground(Color.decode("#F3F3F3"));
 		painelTabela.setBounds(18,100,650,405);
 		add(painelTabela);
 	}
+
 	private void addAdicionar() {
-        JButton botaoAdicionar = new JButton("Adicionar");
+        botaoAdicionar = new JButton("Adicionar");
         botaoAdicionar.setBounds(517, 520, 150, 40);
-        OuvinteAdicionar ouvinte = new OuvinteAdicionar();
-        botaoAdicionar.addActionListener(ouvinte);
         add(botaoAdicionar);
 	}
-	 private void addRemover() {
-	        JButton botaoRemover = new JButton("Remover");
+
+	private void addRemover() {
+	        botaoRemover = new JButton("Remover");
 	        botaoRemover.setBounds(350, 520, 150, 40);
-	        OuvinteBotao ouvinte = new OuvinteBotao();
-	        botaoRemover.addActionListener(ouvinte);
 	        add(botaoRemover);
-	 }
-	 private void addEditar() {
-	        JButton botaoEditar = new JButton("Editar");
+	}
+
+	private void addEditar() {
+	        botaoEditar = new JButton("Editar");
 	        botaoEditar.setBounds(183, 520, 150, 40);
-	        OuvinteBotao ouvinte = new OuvinteBotao();
-	        botaoEditar.addActionListener(ouvinte);
+
 	        add(botaoEditar);
-	 }
-	 private void addDetalhar() {
-	        JButton botaoDetalhar = new JButton("Detalhar");
+	}
+
+	private void addDetalhar() {
+	        botaoDetalhar = new JButton("Detalhar");
 	        botaoDetalhar.setBounds(18, 520, 150, 40);
-	        OuvinteBotao ouvinte = new OuvinteBotao();
-	        botaoDetalhar.addActionListener(ouvinte);
+
 	        add(botaoDetalhar);
-	 }
+	}
+
+	private void addConcluir() {
+		botaoConcluir = new JButton("Concluir");
+		//Setar posição na tela:...
+		botaoConcluir.setBounds(18, 520, 150, 40);
+
+		add(botaoConcluir);
+ 	}
+
+	private void addClonar() {
+		botaoClonar = new JButton("Clona");
+		//Setar posição na tela:...
+		botaoClonar.setBounds(18, 520, 150, 40);
+
+		add(botaoClonar);
+ 	}
 	 
 	 //ouvinte aqui so para testes, provalvemente vai ter q fazer mais ouvintes 
 	 private class OuvinteBotao implements ActionListener {
