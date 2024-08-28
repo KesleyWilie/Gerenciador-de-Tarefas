@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -11,12 +12,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Controller.OuvinteTelaAdicionarTarefas;
+import Model.Prioridade;
 
 public class TelaAdicionarTarefas extends JFrame {
 	
 	private JTextField textoTitulo;
 	private JTextArea textoDescricao;
-	private String[] ArrayPrio = new String[3];
 	private JComboBox<String> prioridade;
 	private JButton adicionarButton;
 	private JButton botaoCancelar;
@@ -64,6 +65,12 @@ public class TelaAdicionarTarefas extends JFrame {
 	private void addTarefa() {
         adicionarButton = new JButton("Adicionar");
         adicionarButton.setBounds(340, 395, 120, 40);
+		adicionarButton.setForeground(Color.WHITE);
+		adicionarButton.setBackground(Cores.SHAPPHIRE);
+		adicionarButton.setOpaque(true);
+		adicionarButton.setBorder(null);
+		adicionarButton.setFocusable(false);
+
 		OuvinteTelaAdicionarTarefas ouvinte = new OuvinteTelaAdicionarTarefas(this);
 		adicionarButton.addActionListener(ouvinte);
         add(adicionarButton);
@@ -72,6 +79,12 @@ public class TelaAdicionarTarefas extends JFrame {
 	private void addCancelar() {
         botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(205, 395, 120, 40);
+		botaoCancelar.setForeground(Color.WHITE);
+		botaoCancelar.setBackground(Cores.SHAPPHIRE);
+		botaoCancelar.setOpaque(true);
+		botaoCancelar.setBorder(null);
+		botaoCancelar.setFocusable(false);
+
 		OuvinteTelaAdicionarTarefas ouvinte = new OuvinteTelaAdicionarTarefas(this);
 		botaoCancelar.addActionListener(ouvinte);
         add(botaoCancelar);
@@ -97,11 +110,14 @@ public class TelaAdicionarTarefas extends JFrame {
         add(prioridade);
 	}
 	private void addComboPrioridade() {
-		ArrayPrio[0]="Alta";
-		ArrayPrio[1]="Media";
-		ArrayPrio[2]="Baixa";
-		prioridade = new JComboBox<String>(ArrayPrio);
+		prioridade = new JComboBox<>(new String[] {Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
 		prioridade.setBounds(130, 300,330,30);
+		prioridade.setBackground(Cores.CINZA_CLARO_2);
+		prioridade.setForeground(Cores.CINZA_ESCURO_2);
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setOpaque(true);
+		prioridade.setBorder(null);
+
 		add(prioridade);
 	}
 

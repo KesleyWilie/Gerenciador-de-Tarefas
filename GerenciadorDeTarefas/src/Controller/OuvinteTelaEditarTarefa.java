@@ -24,7 +24,7 @@ public class OuvinteTelaEditarTarefa implements ActionListener{
 		if(componente == tela.getBotaoSalvar()){
 			String tituloTarefa = tela.getTextoTitulo().getText();
 			String descricaoTarefa = tela.getTextoDescricao().getText();
-			String prioridadeTarefa = (String) tela.getPrioridade().getSelectedItem();
+			String prioridadeTarefa = tela.getPrioridade().getSelectedItem().toString();
 			if(tituloTarefa.equals(null) || tituloTarefa.equals("")) {
 				JOptionPane.showMessageDialog(null, "Nomeie a tarefa!","Erro",JOptionPane.ERROR_MESSAGE);
 			}else {

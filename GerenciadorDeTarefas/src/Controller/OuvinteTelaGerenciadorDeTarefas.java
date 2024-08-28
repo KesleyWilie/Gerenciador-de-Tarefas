@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import Model.Tarefa;
 import View.TelaAdicionarTarefas;
+import View.TelaEditarTarefa;
 import View.TelaGerenciadorDeTarefas;
+import View.TelaVisualizarTarefa;
 
 public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
 
@@ -31,7 +34,7 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a remoção da tarefa no BD
+                //Implementar a remoção da tarefa
             }
         
         } else if(componente == tela.getBotaoClonar()){
@@ -41,7 +44,7 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a remoção da tarefa no BD
+                //Implementar a clonagem da tarefa
             }
         
         } else if(componente == tela.getBotaoDetalhar()){
@@ -51,7 +54,10 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a remoção da tarefa no BD
+                //Exemplo
+                Tarefa tarefa = RecuperarDoBanco(tela.getTabela().getSelectedRow());
+                new TelaVisualizarTarefa("Tarefa", tarefa);
+                tela.dispose();
             }
         
         } else if(componente == tela.getBotaoEditar()){
@@ -61,7 +67,9 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a remoção da tarefa no BD
+                //Basicamente o mesmo de cima
+                new TelaEditarTarefa("Editar", null);
+                tela.dispose();
             }
         
         } else if(componente == tela.getBotaoConcluir()){
@@ -71,7 +79,11 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a remoção da tarefa no BD
+                //Quando concluir mudar o estado da tarefa, e cor da linha na tabela
+
+                JOptionPane.showMessageDialog(null,
+                        "Tarefa concluída!"
+                        );
             }
         
         } 

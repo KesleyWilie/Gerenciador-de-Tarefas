@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -11,6 +12,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Controller.OuvinteTelaEditarTarefa;
+import Model.Prioridade;
 import Model.TarefaDTO;
 
 public class TelaEditarTarefa extends JFrame{
@@ -19,7 +21,6 @@ public class TelaEditarTarefa extends JFrame{
 	
 	private JTextField textoTitulo;
 	private JTextArea textoDescricao;
-	private String[] ArrayPrio = new String[3];
 	private JComboBox<String> prioridade;
 	private JLabel jlTarefa;
 
@@ -56,6 +57,12 @@ public class TelaEditarTarefa extends JFrame{
 	private void addSalvar() {
         botaoSalvar = new JButton("Salvar");
         botaoSalvar.setBounds(340, 395, 120, 40);
+		botaoSalvar.setForeground(Color.WHITE);
+		botaoSalvar.setBackground(Cores.SHAPPHIRE);
+		botaoSalvar.setOpaque(true);
+		botaoSalvar.setBorder(null);
+		botaoSalvar.setFocusable(false);
+
         OuvinteTelaEditarTarefa ouvinte = new OuvinteTelaEditarTarefa(this);
         botaoSalvar.addActionListener(ouvinte);
         add(botaoSalvar);
@@ -75,8 +82,14 @@ public class TelaEditarTarefa extends JFrame{
     }
 	
 	private void addCancelar() {
-        JButton botaoCancelar = new JButton("Cancelar");
+        botaoCancelar = new JButton("Cancelar");
         botaoCancelar.setBounds(205, 395, 120, 40);
+		botaoCancelar.setForeground(Color.WHITE);
+		botaoCancelar.setBackground(Cores.SHAPPHIRE);
+		botaoCancelar.setOpaque(true);
+		botaoCancelar.setBorder(null);
+		botaoCancelar.setFocusable(false);
+		
 		OuvinteTelaEditarTarefa ouvinte = new OuvinteTelaEditarTarefa(this);
 		botaoCancelar.addActionListener(ouvinte);
         add(botaoCancelar);
@@ -107,7 +120,7 @@ public class TelaEditarTarefa extends JFrame{
 
 
 	private void addComboPrioridade() {
-		String tarefaPrioridade = tarefa.getPrioridade().toString();
+		String tarefaPrioridade = tarefa.getPrioridade().name();
 		int indice = -1;
 		switch (tarefaPrioridade) {
 			case "ALTA":
@@ -123,12 +136,14 @@ public class TelaEditarTarefa extends JFrame{
 				break;
 		}
 
-		ArrayPrio[0]="ALTA";
-		ArrayPrio[1]="MEDIA";
-		ArrayPrio[2]="BAIXA";
-		prioridade = new JComboBox<String>(ArrayPrio);
+		prioridade = new JComboBox<>(new String[] {Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
 		prioridade.setSelectedIndex(indice);
 		prioridade.setBounds(130, 300,330,30);
+		prioridade.setBackground(Cores.CINZA_CLARO_2);
+		prioridade.setForeground(Cores.CINZA_ESCURO_2);
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setOpaque(true);
+		prioridade.setBorder(null);
 		add(prioridade);
 	}
 

@@ -2,25 +2,15 @@ package View;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Controller.PopuladorTabelaTarefas;
-
-
-/**Necessita criar um método para popular a tabela, 
-	 * atráves de um array de tarefas ou outra forma de 
-	 * trazer as tarefas do Banco de dados.
-	 * */
-
 public class TelaGerenciadorDeTarefas extends JFrame {
 
 
@@ -78,18 +68,35 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 	private void addAdicionar() {
         botaoAdicionar = new JButton("Adicionar");
         botaoAdicionar.setBounds(517, 520, 150, 40);
-        add(botaoAdicionar);
+        botaoAdicionar.setForeground(Color.WHITE);
+		botaoAdicionar.setBackground(Cores.SHAPPHIRE);
+		botaoAdicionar.setOpaque(true);
+		botaoAdicionar.setBorder(null);
+		botaoAdicionar.setFocusable(false);
+		add(botaoAdicionar);
 	}
 
 	private void addRemover() {
 	        botaoRemover = new JButton("Remover");
 	        botaoRemover.setBounds(350, 520, 150, 40);
-	        add(botaoRemover);
+	        botaoRemover.setForeground(Color.WHITE);
+			botaoRemover.setBackground(Cores.SHAPPHIRE);
+			botaoRemover.setOpaque(true);
+			botaoRemover.setBorder(null);
+			botaoRemover.setFocusable(false);
+			
+			add(botaoRemover);
 	}
 
 	private void addEditar() {
 	        botaoEditar = new JButton("Editar");
 	        botaoEditar.setBounds(183, 520, 150, 40);
+			botaoEditar.setForeground(Color.WHITE);
+			botaoEditar.setBackground(Cores.SHAPPHIRE);
+			botaoEditar.setOpaque(true);
+			botaoEditar.setBorder(null);
+			botaoEditar.setFocusable(false);
+
 
 	        add(botaoEditar);
 	}
@@ -97,6 +104,12 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 	private void addDetalhar() {
 	        botaoDetalhar = new JButton("Detalhar");
 	        botaoDetalhar.setBounds(18, 520, 150, 40);
+			botaoDetalhar.setForeground(Color.WHITE);
+			botaoDetalhar.setBackground(Cores.SHAPPHIRE);
+			botaoDetalhar.setOpaque(true);
+			botaoDetalhar.setBorder(null);
+			botaoDetalhar.setFocusable(false);
+
 
 	        add(botaoDetalhar);
 	}
@@ -105,6 +118,14 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		botaoConcluir = new JButton("Concluir");
 		//Setar posição na tela:...
 		botaoConcluir.setBounds(18, 520, 150, 40);
+		
+		botaoConcluir.setForeground(Color.WHITE);
+		botaoConcluir.setBackground(Cores.SHAPPHIRE);
+		botaoConcluir.setOpaque(true);
+		botaoConcluir.setBorder(null);
+		botaoConcluir.setFocusable(false);
+
+		
 
 		add(botaoConcluir);
  	}
@@ -113,6 +134,12 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		botaoClonar = new JButton("Clona");
 		//Setar posição na tela:...
 		botaoClonar.setBounds(18, 520, 150, 40);
+
+		botaoClonar.setForeground(Color.WHITE);
+		botaoClonar.setBackground(Cores.SHAPPHIRE);
+		botaoClonar.setOpaque(true);
+		botaoClonar.setBorder(null);
+		botaoClonar.setFocusable(false);
 
 		add(botaoClonar);
  	}
