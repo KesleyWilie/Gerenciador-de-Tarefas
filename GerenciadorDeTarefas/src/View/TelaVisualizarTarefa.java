@@ -105,6 +105,11 @@ public class TelaVisualizarTarefa extends JFrame{
 	}
 
 
+	
+	public TarefaDTO getTarefa() {
+		return tarefa;
+	}
+
 	public JTextField getTextoTitulo() {
 		return textoTitulo;
 	}

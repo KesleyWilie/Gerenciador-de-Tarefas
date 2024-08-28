@@ -22,9 +22,14 @@ public class PopuladorTabelaTarefas {
 		this.scroll = scroll;
     }
 
-    public void popularTabelaTarefas() {
-        //EXEMPLO
-        //List<Tarefa> tarefas = recebe do BD;
+    public void popularTabelaTarefas(String prioridade) {
+        /**
+         * EXEMPLO
+         * List<Tarefa> tarefas = recebe do BD;
+         * Aqui vai fazer também a verificação para filtrar as tarefas de acordo
+         * com a prioridade.
+         * 
+        /*/
 
         for(Tarefa tarefa: tarefas){
             adicionarLinhaTabelaTarefas(modelo, tarefa);

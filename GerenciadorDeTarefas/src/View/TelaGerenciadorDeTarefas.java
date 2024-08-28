@@ -4,20 +4,26 @@ import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.OuvinteTelaGerenciadorDeTarefas;
 import Controller.PopuladorTabelaTarefas;
+import Model.Prioridade;
 public class TelaGerenciadorDeTarefas extends JFrame {
 
+
+	private PopuladorTabelaTarefas populador;
 
 	private JTable tabela;
 	private DefaultTableModel modelo;
 	private JScrollPane painelTabela;
 
+	private JComboBox<String> prioridade;
 
 	private JButton botaoAdicionar;
 	private JButton botaoRemover;
@@ -41,8 +47,9 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		addDetalhar();
 		addConcluir();
 		addClonar();
-		PopuladorTabelaTarefas populador = new PopuladorTabelaTarefas(tabela, modelo, painelTabela);
-		populador.popularTabelaTarefas();
+		addComboPrioridade();
+		populador = new PopuladorTabelaTarefas(tabela, modelo, painelTabela);
+		populador.popularTabelaTarefas("");
 		setVisible(true);
 	}
 	
@@ -52,6 +59,23 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		jlPerfil.setHorizontalAlignment(JLabel.CENTER);
 		jlPerfil.setFont(new Font("Arial",Font.PLAIN,30));
 		add(jlPerfil);
+	}
+
+
+	//Falta Mudar Posição na tela;
+	private void addComboPrioridade() {
+		prioridade = new JComboBox<>(new String[] {Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
+		prioridade.setBounds(130, 300,330,30);
+		prioridade.setBackground(Cores.CINZA_CLARO_2);
+		prioridade.setForeground(Cores.CINZA_ESCURO_2);
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setOpaque(true);
+		prioridade.setBorder(null);
+
+		OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+		prioridade.addItemListener(ouvinte);
+
+		add(prioridade);
 	}
 
 	private void addTabelaTarefas() {
@@ -73,6 +97,9 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		botaoAdicionar.setOpaque(true);
 		botaoAdicionar.setBorder(null);
 		botaoAdicionar.setFocusable(false);
+
+		OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+		botaoAdicionar.addActionListener(ouvinte);
 		add(botaoAdicionar);
 	}
 
@@ -84,6 +111,8 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 			botaoRemover.setOpaque(true);
 			botaoRemover.setBorder(null);
 			botaoRemover.setFocusable(false);
+			OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+			botaoRemover.addActionListener(ouvinte);
 			
 			add(botaoRemover);
 	}
@@ -96,7 +125,8 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 			botaoEditar.setOpaque(true);
 			botaoEditar.setBorder(null);
 			botaoEditar.setFocusable(false);
-
+			OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+			botaoEditar.addActionListener(ouvinte);
 
 	        add(botaoEditar);
 	}
@@ -109,6 +139,8 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 			botaoDetalhar.setOpaque(true);
 			botaoDetalhar.setBorder(null);
 			botaoDetalhar.setFocusable(false);
+			OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+			botaoDetalhar.addActionListener(ouvinte);
 
 
 	        add(botaoDetalhar);
@@ -124,7 +156,8 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		botaoConcluir.setOpaque(true);
 		botaoConcluir.setBorder(null);
 		botaoConcluir.setFocusable(false);
-
+		OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+		botaoConcluir.addActionListener(ouvinte);
 		
 
 		add(botaoConcluir);
@@ -140,9 +173,21 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		botaoClonar.setOpaque(true);
 		botaoClonar.setBorder(null);
 		botaoClonar.setFocusable(false);
+		OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
+		botaoClonar.addActionListener(ouvinte);
 
 		add(botaoClonar);
  	}
+
+	
+
+	public PopuladorTabelaTarefas getPopulador() {
+		return populador;
+	}
+
+	public JComboBox<String> getPrioridade() {
+		return prioridade;
+	}
 
 	public JTable getTabela() {
 		return tabela;

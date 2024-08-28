@@ -2,7 +2,10 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import Model.Tarefa;
@@ -11,12 +14,14 @@ import View.TelaEditarTarefa;
 import View.TelaGerenciadorDeTarefas;
 import View.TelaVisualizarTarefa;
 
-public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
+public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemListener{
 
     private TelaGerenciadorDeTarefas tela;
+    private JComboBox<String> prioridade;
 
-    public OuvinteTelaGerenciadorDeTarefas(TelaGerenciadorDeTarefas tela){
+    public OuvinteTelaGerenciadorDeTarefas(TelaGerenciadorDeTarefas tela, JComboBox<String> prioridade){
         this.tela = tela;
+        this.prioridade = prioridade;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -88,6 +93,16 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener{
         
         } 
     
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+        if(e.getStateChange() == ItemEvent.SELECTED){
+            String itemSelecionado = (String) prioridade.getSelectedItem();
+            tela.getPopulador().popularTabelaTarefas(itemSelecionado);
+            new TelaGerenciadorDeTarefas("Tarefas");
+            tela.dispose();
+        }
     }
 
 }
