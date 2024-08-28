@@ -1,12 +1,10 @@
 package Controller;
 
-import View.TelaAdicionarTarefas;
-import View.TelaGerenciadorDeTarefas;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Model.TarefaDTO;
+import View.TelaAdicionarTarefas;
+import View.TelaGerenciadorDeTarefas;
 
 public class OuvinteTelaAdicionarTarefas implements ActionListener{
     
@@ -21,6 +19,8 @@ public class OuvinteTelaAdicionarTarefas implements ActionListener{
 		
 		if(componente == tela.getAdicionarButton()) {
 			novaTarefa();
+            new TelaGerenciadorDeTarefas("Tarefas");
+            tela.dispose();
             //Exibir mensagem caso a tarefa for criada
         } else if(componente == tela.getBotaoCancelar()){
             tela.dispose();
