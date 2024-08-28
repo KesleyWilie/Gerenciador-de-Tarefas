@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TarefaDAO implements Sujeito {
-    private Connection conexao;// Connexão com o banco de dados
+    private Connection conexao;
     private List<Observador> observadores;
 
     public TarefaDAO() {
@@ -16,7 +16,6 @@ public class TarefaDAO implements Sujeito {
         this.observadores = new ArrayList<>();
     }
     // IMPLEMENTAÇÃO DO PADRÃO OBSERVER
-    // IMPORTANTE!  notificar na GUI
     // Implementação dos métodos da interface Sujeito
     @Override
     public void adicionarObservador(Observador observador) {
@@ -212,7 +211,77 @@ public class TarefaDAO implements Sujeito {
             e.printStackTrace();
         }
     	return null;
-    	
+    }
+    /*recuperar uma unica tarefa:
+     *  public Tarefa recuperarTarefa(TarefaDTO tarefa) {
+        String sql = "SELECT * FROM tarefas WHERE id = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, tarefa.getId());
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    TarefaDTO tarefaDTO = new TarefaDTOBuilder()
+                            .setId(rs.getInt("id"))
+                            .setTitulo(rs.getString("titulo"))
+                            .setDescricao(rs.getString("descricao"))
+                            .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
+                            .setConcluida(Estado.valueOf(rs.getString("concluida")))
+                            .build();
+                    return new Tarefa(tarefaDTO);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null
+     
+     */
+    
+    
+    
+    public List<TarefaDTO> obterTarefasPorPrioridade(String prioridade) {
+        List<TarefaDTO> tarefas = new ArrayList<>();
+        String sql = "SELECT * FROM tarefas WHERE prioridade = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, prioridade);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    TarefaDTO tarefaDTO = new TarefaDTOBuilder()
+                            .setId(rs.getInt("id"))
+                            .setTitulo(rs.getString("titulo"))
+                            .setDescricao(rs.getString("descricao"))
+                            .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
+                            .setConcluida(Estado.valueOf(rs.getString("concluida")))
+                            .build();
+                    tarefas.add(tarefaDTO);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tarefas;
+    }
+
+    public List<TarefaDTO> obterTarefasPorEstado(String estado) {
+        List<TarefaDTO> tarefas = new ArrayList<>();
+        String sql = "SELECT * FROM tarefas WHERE concluida = ?";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, estado);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    TarefaDTO tarefaDTO = new TarefaDTOBuilder()
+                            .setId(rs.getInt("id"))
+                            .setTitulo(rs.getString("titulo"))
+                            .setDescricao(rs.getString("descricao"))
+                            .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
+                            .setConcluida(Estado.valueOf(rs.getString("concluida")))
+                            .build();
+                    tarefas.add(tarefaDTO);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return tarefas;
     }
     
     /*public void adicionarClone(Tarefa tarefa) {
@@ -225,6 +294,7 @@ public class TarefaDAO implements Sujeito {
    			.build());
 	}*/
     
+    
 }
 
 
@@ -235,6 +305,7 @@ public class TarefaDAO implements Sujeito {
   Integração com o Observer: Ao implementar o padrão Observer, a TarefaDAO garante que outros componentes da aplicação 
   (por exemplo, a interface gráfica) sejam atualizados automaticamente sempre que uma tarefa é criada, atualizada ou excluída.
 */
+
 
 
 
