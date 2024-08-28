@@ -13,6 +13,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Controller.PopuladorTabelaTarefas;
+
 
 /**Necessita criar um método para popular a tabela, 
 	 * atráves de um array de tarefas ou outra forma de 
@@ -49,6 +51,8 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		addDetalhar();
 		addConcluir();
 		addClonar();
+		PopuladorTabelaTarefas populador = new PopuladorTabelaTarefas(tabela, modelo, painelTabela);
+		populador.popularTabelaTarefas();
 		setVisible(true);
 	}
 	
