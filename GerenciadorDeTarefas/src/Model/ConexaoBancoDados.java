@@ -49,6 +49,18 @@ public class ConexaoBancoDados { //Singleton
     	concluida ENUM('Andamento', 'Concluida') DEFAULT 'Andamento'
 	);
     
+	acho que pode ficar assim:
+	----------------------------------------------------------------------------------
+		CREATE DATABASE IF NOT EXISTS taskdb;
+	USE taskdb;
+	
+	CREATE TABLE IF NOT EXISTS tarefas (
+	    id INT AUTO_INCREMENT PRIMARY KEY,
+	    titulo VARCHAR(255) NOT NULL,
+	    descricao TEXT,
+	    prioridade ENUM('ALTA', 'MEDIA', 'BAIXA') NOT NULL,
+	    concluida ENUM('NAO_INICIADA', 'EM_PROGRESSO', 'CONCLUIDA') NOT NULL
+	);
 
 --------------------------------------------------------------------
 Passo a passo pra quem quiser testar aí:
