@@ -2,6 +2,7 @@ package Model;
 
 public enum Estado {
 
-	Andamento,
+	
+	Em_Andamento,
 	Concluida;
 }

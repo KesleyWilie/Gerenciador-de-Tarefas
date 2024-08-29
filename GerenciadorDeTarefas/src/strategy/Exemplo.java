@@ -1,17 +1,5 @@
 package strategy;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.List;
-
-import javax.swing.JComboBox;
-
-import Model.TarefaDTO;
-import View.FiltroEmAndamento;
-import View.FiltroNaoIniciadas;
-import View.FiltroPrioridadeBaixa;
-import View.FiltroPrioridadeMedia;
-
 public class Exemplo {
 		/*
 		//Exemplo ao selecionar um filtro

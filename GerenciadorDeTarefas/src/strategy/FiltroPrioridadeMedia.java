@@ -1,9 +1,9 @@
 package strategy;
 
+import java.util.List;
+
 import Model.TarefaDAO;
 import Model.TarefaDTO;
-
-import java.util.List;
 
 public class FiltroPrioridadeMedia implements FiltroTarefa {
     @Override

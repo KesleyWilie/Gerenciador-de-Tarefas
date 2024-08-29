@@ -8,7 +8,7 @@ public class TarefaDTOBuilder {
     private String titulo;
     private String descricao;
     private Prioridade prioridade;
-    private Estado concluida = Estado.Andamento;
+    private Estado concluida = Estado.Em_Andamento;
     
         
     public TarefaDTOBuilder setId(int id) {

@@ -9,7 +9,7 @@ public class ConexaoBancoDados { //Singleton
     private Connection conexao;
     private String url = "jdbc:mysql://localhost:3306/taskdb"; // nome do banco de dados
     private String usuario = "root"; // nome de usuário do MySQL
-    private String senha = "senha";  // senha do MySQL
+    private String senha = "6556Delta!";  // senha do MySQL
 
     private ConexaoBancoDados() {
         try {
@@ -46,7 +46,7 @@ public class ConexaoBancoDados { //Singleton
     	titulo VARCHAR(255) NOT NULL,
     	descricao TEXT,
     	prioridade ENUM('BAIXA', 'MEDIA', 'ALTA') NOT NULL,
-    	concluida ENUM('Andamento', 'Concluida') DEFAULT 'Andamento'
+    	concluida ENUM('Em_Andamento', 'Concluida') DEFAULT 'Em_Andamento'
 	);
     
 	acho que pode ficar assim:

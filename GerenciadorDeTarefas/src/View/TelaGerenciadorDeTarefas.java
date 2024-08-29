@@ -80,7 +80,7 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 
 	private void addTabelaTarefas() {
 		modelo = new DefaultTableModel();
-		modelo.setColumnIdentifiers(new String[] {"Tarefas, Prioridade, Em andamento/Concluido(a)"});
+		modelo.setColumnIdentifiers(new String[] {"Tarefas", "Prioridade", "Em andamento/Concluido(a)"});
 		tabela = new JTable(modelo);
 		tabela.setFont(new Font("Arial", Font.PLAIN, 17));
 		painelTabela = new JScrollPane(tabela);

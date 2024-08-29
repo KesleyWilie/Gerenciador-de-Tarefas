@@ -1,15 +1,20 @@
 package Model;
 
-import Observer.Observador;
-import Observer.Sujeito;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import Observer.Observador;
+import Observer.Sujeito;
 
 public class TarefaDAO implements Sujeito {
     private Connection conexao;
     private List<Observador> observadores;
+    
+    private static TarefaDAO tarefaDAO = new TarefaDAO();
 
     public TarefaDAO() {
         this.conexao = ConexaoBancoDados.getInstancia().getConexao();
@@ -57,7 +62,6 @@ public class TarefaDAO implements Sujeito {
             stmt.setString(3, tarefa.getPrioridade().name());
             stmt.setString(4, tarefa.isConcluida().name());
             stmt.executeUpdate();
-            System.out.println("Tarefa adicionada com sucesso!");
             tarefaDTO.setAcao("adicionada");
             notificarObservadores(tarefaDTO); //.
         } catch (SQLException e) {
@@ -106,7 +110,7 @@ public class TarefaDAO implements Sujeito {
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
 			stmt.setInt(1, idDaTarefa);  //Configura o id da tarefa que será deletada.
             stmt.executeUpdate();
-            System.out.println("Tarefa deletada com sucesso!");
+            //System.out.println("Tarefa deletada com sucesso!");
             tarefaDTO.setAcao("deletada");
             notificarObservadores(tarefaDTO);
         } catch (SQLException e) {
@@ -283,6 +287,9 @@ public class TarefaDAO implements Sujeito {
         }
         return tarefas;
     }
+	public static TarefaDAO getTarefaDAO() {
+		return tarefaDAO;
+	}
     
     /*public void adicionarClone(Tarefa tarefa) {
     	adicionarTarefa(new TarefaDTOBuilder()
@@ -293,6 +300,7 @@ public class TarefaDAO implements Sujeito {
    			.setConcluida(tarefa.isConcluida())
    			.build());
 	}*/
+    
     
     
 }
