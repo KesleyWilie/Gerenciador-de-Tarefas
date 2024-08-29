@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.Font;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Model.Prioridade;
 import Model.TarefaDTO;
 
 public class TelaVisualizarTarefa extends JFrame{
@@ -41,7 +41,9 @@ public class TelaVisualizarTarefa extends JFrame{
 		addComboPrioridade();
 		addCancelar();
 		textoTitulo.setText(tarefa.getTitulo());
+		textoTitulo.setEditable(false);
 		textoDescricao.setText(tarefa.getDescricao());
+		textoDescricao.setEditable(false);
 		prioridade.setSelectedItem(tarefa.getPrioridade());
 		prioridade.setEditable(false);
 		setVisible(true);
@@ -92,7 +94,13 @@ public class TelaVisualizarTarefa extends JFrame{
 	}
 
 	private void addComboPrioridade() {
+		prioridade = new JComboBox<>(new String[] {Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
 		prioridade.setBounds(130, 300,330,30);
+		prioridade.setBackground(Cores.CINZA_CLARO_2);
+		prioridade.setForeground(Cores.CINZA_ESCURO_2);
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setOpaque(true);
+		prioridade.setBorder(null);
 		add(prioridade);
 	}
 

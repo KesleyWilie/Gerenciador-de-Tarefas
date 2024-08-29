@@ -4,11 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import Model.Tarefa;
+import Model.TarefaDAO;
+import Model.TarefaDTO;
+import View.ObservadorTarefa;
 import View.TelaAdicionarTarefas;
 import View.TelaEditarTarefa;
 import View.TelaGerenciadorDeTarefas;
@@ -18,6 +21,10 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
 
     private TelaGerenciadorDeTarefas tela;
     private JComboBox<String> prioridade;
+    
+    private ObservadorTarefa observador = new ObservadorTarefa();
+    
+    private TarefaDAO tarefaDAO = new TarefaDAO();
 
     public OuvinteTelaGerenciadorDeTarefas(TelaGerenciadorDeTarefas tela, JComboBox<String> prioridade){
         this.tela = tela;
@@ -39,7 +46,11 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a remoção da tarefa
+                int index = tela.getTabela().getSelectedRow();
+                TarefaDTO tarefaRemover = tarefaDAO.listarTarefas().get(index);
+                tarefaDAO.deletarTarefa(tarefaRemover);
+                observador.atualizar(tarefaRemover);
+                tela.dispose();
             }
         
         } else if(componente == tela.getBotaoClonar()){
@@ -59,8 +70,8 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Exemplo
-                Tarefa tarefa = RecuperarDoBanco(tela.getTabela().getSelectedRow());
+                List<TarefaDTO> tarefas = TarefaDAO.getTarefaDAO().listarTarefas();
+                TarefaDTO tarefa = tarefas.get(tela.getTabela().getSelectedRow());
                 new TelaVisualizarTarefa("Tarefa", tarefa);
                 tela.dispose();
             }
@@ -91,7 +102,9 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
                         );
             }
         
-        } 
+        }
+        
+        tarefaDAO.adicionarObservador(observador);
     
     }
 

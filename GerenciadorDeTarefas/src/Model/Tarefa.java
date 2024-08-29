@@ -45,11 +45,11 @@ public class Tarefa implements EstadoDaTarefa, PrototypeTarefa{
 
 	@Override
 	public void mudarEstado() {
-		if(concluida.equals(Estado.Andamento)) {
+		if(concluida.equals(Estado.Em_Andamento)) {
 			this.concluida = Estado.Concluida;
 		}
 		else {
-			this.concluida = Estado.Andamento;
+			this.concluida = Estado.Em_Andamento;
 		}
 		
 	}

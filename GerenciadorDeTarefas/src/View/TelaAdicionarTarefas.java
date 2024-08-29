@@ -15,7 +15,7 @@ import Controller.OuvinteTelaAdicionarTarefas;
 import Model.Prioridade;
 
 public class TelaAdicionarTarefas extends JFrame {
-	
+		
 	private JTextField textoTitulo;
 	private JTextArea textoDescricao;
 	private JComboBox<String> prioridade;

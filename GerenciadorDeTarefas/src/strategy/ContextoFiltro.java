@@ -1,8 +1,8 @@
 package strategy;
 
-import Model.TarefaDTO;
-
 import java.util.List;
+
+import Model.TarefaDTO;
 
 public class ContextoFiltro {
     private FiltroTarefa filtro;

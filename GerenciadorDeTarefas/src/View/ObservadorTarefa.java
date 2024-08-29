@@ -1,7 +1,9 @@
 package View;
 
-import Observer.Observador;
+import javax.swing.JOptionPane;
+
 import Model.TarefaDTO;
+import Observer.Observador;
 
 public class ObservadorTarefa implements Observador {
 
@@ -9,15 +11,18 @@ public class ObservadorTarefa implements Observador {
     public void atualizar(TarefaDTO tarefaDTO) {// pode usar coisas assim pra o strategy tbm
         switch (tarefaDTO.getAcao()) {
             case "adicionada":
-                System.out.println("Nova tarefa adicionada: " + tarefaDTO.getTitulo());
+            	JOptionPane.showMessageDialog(null, "Nova tarefa adicionada!: " + tarefaDTO.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+                new TelaGerenciadorDeTarefas("Tarefas");
                 // Código para atualizar a interface gráfica com a nova tarefa
                 break;
             case "atualizada":
-                System.out.println("Tarefa atualizada: " + tarefaDTO.getTitulo());
+            	JOptionPane.showMessageDialog(null, "Tarefa atualizada!: " + tarefaDTO.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            	new TelaGerenciadorDeTarefas("Tarefas");
                 // Código para atualizar a interface gráfica com as mudanças na tarefa
                 break;
             case "deletada":
-                System.out.println("Tarefa deletada.");
+            	JOptionPane.showMessageDialog(null, "Tarefa deletada!: " + tarefaDTO.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            	new TelaGerenciadorDeTarefas("Tarefas");
                 // Código para atualizar a interface gráfica removendo a tarefa
                 break;
             default:

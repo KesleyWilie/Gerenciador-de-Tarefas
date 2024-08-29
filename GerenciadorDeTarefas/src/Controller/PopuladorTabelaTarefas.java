@@ -1,13 +1,13 @@
 package Controller;
 
-import java.awt.List;
+import java.util.List;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import Model.Tarefa;
+import Model.TarefaDAO;
 import Model.TarefaDTO;
 
 public class PopuladorTabelaTarefas {
@@ -15,6 +15,8 @@ public class PopuladorTabelaTarefas {
     private JTable tabela;
 	private DefaultTableModel modelo;
 	private JScrollPane scroll;
+	
+	private TarefaDAO tarefaDAO = new TarefaDAO();
 
     public PopuladorTabelaTarefas(JTable tabela, DefaultTableModel modelo, JScrollPane scroll) {
 		this.tabela = tabela;
@@ -23,15 +25,10 @@ public class PopuladorTabelaTarefas {
     }
 
     public void popularTabelaTarefas(String prioridade) {
-        /**
-         * EXEMPLO
-         * List<Tarefa> tarefas = recebe do BD;
-         * Aqui vai fazer também a verificação para filtrar as tarefas de acordo
-         * com a prioridade.
-         * 
-        /*/
+    	List<TarefaDTO> tarefas = tarefaDAO.listarTarefas();
 
-        for(Tarefa tarefa: tarefas){
+
+        for(TarefaDTO tarefa: tarefas){
             adicionarLinhaTabelaTarefas(modelo, tarefa);
         }
 
@@ -39,7 +36,7 @@ public class PopuladorTabelaTarefas {
 
     }
 
-    public void adicionarLinhaTabelaTarefas(DefaultTableModel modelo, Tarefa tarefa){
+    public void adicionarLinhaTabelaTarefas(DefaultTableModel modelo, TarefaDTO tarefa){
 
         Object[] linha = new Object[3];
         linha[0] = tarefa.getTitulo();
