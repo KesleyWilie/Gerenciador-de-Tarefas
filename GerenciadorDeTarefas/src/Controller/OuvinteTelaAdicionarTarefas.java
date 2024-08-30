@@ -19,9 +19,8 @@ public class OuvinteTelaAdicionarTarefas implements ActionListener{
     
     private TarefaDTO tarefa = null;
     
-    private TarefaDAO tarefaDAO = new TarefaDAO();
+    private TarefaDAO tarefaDAO = TarefaDAO.getTarefaDAO();
     
-    private ObservadorTarefa observador = new ObservadorTarefa();
 
     public OuvinteTelaAdicionarTarefas(TelaAdicionarTarefas tela){
         this.tela = tela;
@@ -32,11 +31,10 @@ public class OuvinteTelaAdicionarTarefas implements ActionListener{
 		
 		if(componente == tela.getAdicionarButton()) {
 			novaTarefa();
-            
-            //Exibir mensagem caso a tarefa for criada
+			tela.dispose();
         } else if(componente == tela.getBotaoCancelar()){
             tela.dispose();
-            new TelaGerenciadorDeTarefas("Tarefas");
+            new TelaGerenciadorDeTarefas("Tarefas", "");
         }
 		
 		
@@ -57,12 +55,11 @@ public class OuvinteTelaAdicionarTarefas implements ActionListener{
     				.setPrioridade(prioridadeEnum)
     				.build();
     		
-    		TarefaDAO.getTarefaDAO().adicionarTarefa(tarefa);
-    		observador.atualizar(tarefa);
-    		tarefaDAO.adicionarObservador(observador);
     		
-            tela.dispose();
-    		
+    		ObservadorTarefa observador = new ObservadorTarefa(tarefa);
+    		tarefaDAO.adicionarObservador("adicionada",observador);
+    		tarefaDAO.adicionarTarefa(tarefa);
+       	
     		
     	}
         

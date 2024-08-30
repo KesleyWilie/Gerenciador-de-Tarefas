@@ -9,7 +9,7 @@ public class ConexaoBancoDados { //Singleton
     private Connection conexao;
     private String url = "jdbc:mysql://localhost:3306/taskdb"; // nome do banco de dados
     private String usuario = "root"; // nome de usuário do MySQL
-    private String senha = "6556Delta!";  // senha do MySQL
+    private String senha = "Deda_BD69";  // senha do MySQL
 
     private ConexaoBancoDados() {
         try {

@@ -114,7 +114,7 @@ public class TelaAdicionarTarefas extends JFrame {
 		prioridade.setBounds(130, 300,330,30);
 		prioridade.setBackground(Cores.CINZA_CLARO_2);
 		prioridade.setForeground(Cores.CINZA_ESCURO_2);
-		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 26));
 		prioridade.setOpaque(true);
 		prioridade.setBorder(null);
 

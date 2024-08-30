@@ -5,14 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import Model.Prioridade;
+import Model.TarefaDAO;
 import Model.TarefaDTO;
+import View.ObservadorTarefa;
 import View.TelaEditarTarefa;
 import View.TelaGerenciadorDeTarefas;
 
 public class OuvinteTelaEditarTarefa implements ActionListener{
 
 	private TelaEditarTarefa tela;
-
+	
+	private TarefaDAO tarefaDAO = TarefaDAO.getTarefaDAO();
 
 	public OuvinteTelaEditarTarefa(TelaEditarTarefa tela) {
 		this.tela=tela;
@@ -24,22 +28,31 @@ public class OuvinteTelaEditarTarefa implements ActionListener{
 		if(componente == tela.getBotaoSalvar()){
 			String tituloTarefa = tela.getTextoTitulo().getText();
 			String descricaoTarefa = tela.getTextoDescricao().getText();
-			String prioridadeTarefa = tela.getPrioridade().getSelectedItem().toString();
+			String prioridadeTarefa = (String) tela.getPrioridade().getSelectedItem();
 			if(tituloTarefa.equals(null) || tituloTarefa.equals("")) {
 				JOptionPane.showMessageDialog(null, "Nomeie a tarefa!","Erro",JOptionPane.ERROR_MESSAGE);
 			}else {
-				TarefaDTO tarefa = tela.getTarefa();
+				TarefaDTO tarefaEditada = tela.getTarefa();
+				tarefaEditada.setTitulo(tituloTarefa);
+				tarefaEditada.setDescricao(descricaoTarefa);
+				tarefaEditada.setPrioridade(Prioridade.valueOf(prioridadeTarefa));
 				//Atualizar a tarefa no banco
+				ObservadorTarefa observador = new ObservadorTarefa(tarefaEditada);
+				tarefaDAO.adicionarObservador("atualizada", observador);
+				tarefaDAO.atualizarTarefa(tarefaEditada);
 				
-
-				JOptionPane.showMessageDialog(null, "Tarefa registrada com sucesso!");
+				
 				tela.dispose();
+				
+				
 			}
 			
 		} else if(componente == tela.getBotaoCancelar()){
 			tela.dispose();
-			new TelaGerenciadorDeTarefas("Tarefas");
+			new TelaGerenciadorDeTarefas("Tarefas", "");
 		}
+		
+		
 		
 		
 	}

@@ -2,56 +2,63 @@ package Controller;
 
 import java.util.List;
 
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 import Model.TarefaDAO;
 import Model.TarefaDTO;
+import View.TelaGerenciadorDeTarefas;
 
 public class PopuladorTabelaTarefas {
-
-    private JTable tabela;
-	private DefaultTableModel modelo;
-	private JScrollPane scroll;
 	
-	private TarefaDAO tarefaDAO = new TarefaDAO();
+	private TelaGerenciadorDeTarefas tela;
 
-    public PopuladorTabelaTarefas(JTable tabela, DefaultTableModel modelo, JScrollPane scroll) {
-		this.tabela = tabela;
-		this.modelo = modelo;
-		this.scroll = scroll;
+	private TarefaDAO tarefaDAO = TarefaDAO.getTarefaDAO();
+	
+	private static List<TarefaDTO> tarefasAtuais = null;
+
+    public PopuladorTabelaTarefas(TelaGerenciadorDeTarefas tela) {
+    	this.tela = tela;
     }
 
     public void popularTabelaTarefas(String prioridade) {
-    	List<TarefaDTO> tarefas = tarefaDAO.listarTarefas();
+    	
+    	if(prioridade.equalsIgnoreCase("TODOS") || prioridade.equalsIgnoreCase("")) {
+    		tarefasAtuais = tarefaDAO.listarTarefas();
+    	} else {
+    		tarefasAtuais = tarefaDAO.obterTarefasPorPrioridade(prioridade);
+    	}
 
 
-        for(TarefaDTO tarefa: tarefas){
-            adicionarLinhaTabelaTarefas(modelo, tarefa);
+        for(TarefaDTO tarefa: tarefasAtuais){
+            adicionarLinhaTabelaTarefas(tarefa);
         }
 
-        scroll.repaint();
+        tela.getPainelTabela().repaint();
 
     }
 
-    public void adicionarLinhaTabelaTarefas(DefaultTableModel modelo, TarefaDTO tarefa){
+    public void adicionarLinhaTabelaTarefas(TarefaDTO tarefa){
 
         Object[] linha = new Object[3];
         linha[0] = tarefa.getTitulo();
         linha[1] = tarefa.getPrioridade();
         linha[2] = tarefa.isConcluida();
 
-        modelo.addRow(linha);
+        tela.getModelo().addRow(linha);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 	    centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
 
-        for (int i = 0; i < modelo.getColumnCount(); i++) {
-	        tabela.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        for (int i = 0; i < tela.getModelo().getColumnCount(); i++) {
+	        tela.getTabela().getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 	    }
     }
+
+	public static List<TarefaDTO> getTarefasAtuais() {
+		return tarefasAtuais;
+	}
+    
+    
 
 
 }

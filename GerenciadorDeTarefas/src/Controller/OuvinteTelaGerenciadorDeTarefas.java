@@ -22,9 +22,8 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
     private TelaGerenciadorDeTarefas tela;
     private JComboBox<String> prioridade;
     
-    private ObservadorTarefa observador = new ObservadorTarefa();
-    
-    private TarefaDAO tarefaDAO = new TarefaDAO();
+    private TarefaDAO tarefaDAO = TarefaDAO.getTarefaDAO();
+    private List<TarefaDTO> tarefas = TarefaDAO.getTarefaDAO().listarTarefas();
 
     public OuvinteTelaGerenciadorDeTarefas(TelaGerenciadorDeTarefas tela, JComboBox<String> prioridade){
         this.tela = tela;
@@ -36,9 +35,9 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
         Object componente = e.getSource();
 
         if(componente == tela.getBotaoAdicionar()){
+        	tela.dispose();
             new TelaAdicionarTarefas("Nova Tarefa");
-            tela.dispose();
-        
+            
         } else if(componente == tela.getBotaoRemover()){
 
             if(tela.getTabela().getSelectedRow() == -1){
@@ -47,31 +46,22 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
                         );
             } else {
                 int index = tela.getTabela().getSelectedRow();
-                TarefaDTO tarefaRemover = tarefaDAO.listarTarefas().get(index);
+                TarefaDTO tarefaRemover = tarefas.get(index);
+                ObservadorTarefa observador = new ObservadorTarefa(tarefaRemover);
+                tarefaDAO.adicionarObservador("deletada",observador);
                 tarefaDAO.deletarTarefa(tarefaRemover);
-                observador.atualizar(tarefaRemover);
+                
                 tela.dispose();
             }
         
-        } else if(componente == tela.getBotaoClonar()){
+        }else if(componente == tela.getBotaoDetalhar()){
 
             if(tela.getTabela().getSelectedRow() == -1){
                 JOptionPane.showMessageDialog(null,
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Implementar a clonagem da tarefa
-            }
-        
-        } else if(componente == tela.getBotaoDetalhar()){
-
-            if(tela.getTabela().getSelectedRow() == -1){
-                JOptionPane.showMessageDialog(null,
-                        "Selecione Alguma Tarefa!"
-                        );
-            } else {
-                List<TarefaDTO> tarefas = TarefaDAO.getTarefaDAO().listarTarefas();
-                TarefaDTO tarefa = tarefas.get(tela.getTabela().getSelectedRow());
+                TarefaDTO tarefa = PopuladorTabelaTarefas.getTarefasAtuais().get(tela.getTabela().getSelectedRow());
                 new TelaVisualizarTarefa("Tarefa", tarefa);
                 tela.dispose();
             }
@@ -83,38 +73,21 @@ public class OuvinteTelaGerenciadorDeTarefas implements ActionListener, ItemList
                         "Selecione Alguma Tarefa!"
                         );
             } else {
-                //Basicamente o mesmo de cima
-                new TelaEditarTarefa("Editar", null);
+                TarefaDTO tarefa = PopuladorTabelaTarefas.getTarefasAtuais().get(tela.getTabela().getSelectedRow());
+                new TelaEditarTarefa("Editar", tarefa);
                 tela.dispose();
-            }
-        
-        } else if(componente == tela.getBotaoConcluir()){
-
-            if(tela.getTabela().getSelectedRow() == -1){
-                JOptionPane.showMessageDialog(null,
-                        "Selecione Alguma Tarefa!"
-                        );
-            } else {
-                //Quando concluir mudar o estado da tarefa, e cor da linha na tabela
-
-                JOptionPane.showMessageDialog(null,
-                        "Tarefa concluída!"
-                        );
             }
         
         }
         
-        tarefaDAO.adicionarObservador(observador);
-    
     }
 
     @Override
     public void itemStateChanged(ItemEvent e) {
         if(e.getStateChange() == ItemEvent.SELECTED){
             String itemSelecionado = (String) prioridade.getSelectedItem();
-            tela.getPopulador().popularTabelaTarefas(itemSelecionado);
-            new TelaGerenciadorDeTarefas("Tarefas");
             tela.dispose();
+            new TelaGerenciadorDeTarefas("Tarefas", itemSelecionado);   
         }
     }
 

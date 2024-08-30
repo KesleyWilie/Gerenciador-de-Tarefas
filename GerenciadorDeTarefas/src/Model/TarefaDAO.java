@@ -5,40 +5,75 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import Observer.Observador;
 import Observer.Sujeito;
 
 public class TarefaDAO implements Sujeito {
     private Connection conexao;
-    private List<Observador> observadores;
+    
+    private HashMap<String ,Observador> observadores;
     
     private static TarefaDAO tarefaDAO = new TarefaDAO();
 
     public TarefaDAO() {
         this.conexao = ConexaoBancoDados.getInstancia().getConexao();
-        this.observadores = new ArrayList<>();
+        this.observadores = new HashMap<>();
     }
     // IMPLEMENTAÇÃO DO PADRÃO OBSERVER
     // Implementação dos métodos da interface Sujeito
     @Override
-    public void adicionarObservador(Observador observador) {
-        observadores.add(observador); // Adiciona um observador à lista de observadores.
+    public void adicionarObservador(String acao, Observador observador) {
+        observadores.put(acao, observador); // Adiciona um observador à lista de observadores.
     }
 
     @Override
     public void removerObservador(Observador observador) {
-        observadores.remove(observador); //Remove um observador da lista.
+    	for (Map.Entry<String, Observador> observadorIndex : observadores.entrySet()) {
+        		if(observadorIndex.getValue() == observador) {
+        			observadores.remove(observadorIndex.getKey());//Remove um observador da lista de observadores.
+        		}
+        	
+    	}
+    	
+         //Remove um observador da lista.
     }
 
     @Override
     public void notificarObservadores(TarefaDTO tarefaDTO) {
-        for (Observador observador : observadores) {
-            observador.atualizar(tarefaDTO);
+    	Observador observador = null;
+    	
+    	
+        for (Map.Entry<String, Observador> observadorIndex : observadores.entrySet()) {
+        	if(observadorIndex.getKey().equalsIgnoreCase("adicionada")) {
+        		if(observadorIndex.getValue().getTarefa() == tarefaDTO) {
+        			observador = observadorIndex.getValue();
+        		}
+        	
+        	} else if(observadorIndex.getKey().equalsIgnoreCase("atualizada")) {
+        		if(observadorIndex.getValue().getTarefa() == tarefaDTO) {
+        			observador = observadorIndex.getValue();
+        		}
+        		
+        	} else if(observadorIndex.getKey().equalsIgnoreCase("deletada")) {
+        		if(observadorIndex.getValue().getTarefa() == tarefaDTO) {
+        			observador = observadorIndex.getValue();
+        			observadores.remove(observadorIndex.getKey());
+        		}
+        	} else if(observadorIndex.getKey().equalsIgnoreCase("clonada")) {
+        		if(observadorIndex.getValue().getTarefa() == tarefaDTO) {
+        			observador = observadorIndex.getValue();
+        		}
+        	}
+        	   
             //Notifica todos os observadores sobre uma ação realizada em uma tarefa.
             //A ação pode ser, por exemplo, "adicionada", "atualizada" ou "deletada".
         }
+        
+        observador.atualizar();
     }
 
     // Método para adicionar tarefa
@@ -93,7 +128,6 @@ public class TarefaDAO implements Sujeito {
             stmt.setString(4, tarefa.isConcluida().name());
             stmt.setInt(5, tarefa.getId());
             stmt.executeUpdate();
-            System.out.println("Tarefa atualizada com sucesso!");
             tarefaDTO.setAcao("atualizada");
             notificarObservadores(tarefaDTO);
         } catch (SQLException e) {
@@ -157,7 +191,6 @@ public class TarefaDAO implements Sujeito {
 	            stmt.setString(4, tarefa.isConcluida().name());
 	            stmt.setInt(5, tarefa.getId());
 	            stmt.executeUpdate();
-	            System.out.println("Tarefa atualizada com sucesso!");
 	            tarefaDTO.setAcao("atualizada");
 	            notificarObservadores(tarefaDTO);
 	        } catch (SQLException e) {
@@ -174,13 +207,12 @@ public class TarefaDAO implements Sujeito {
 	    	
 	    	String sql = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, ?)";
 	        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {//evitar ataques de SQL injection, valores substituem ?
-	            stmt.setString(1, tarefaClone.getTitulo());
+	            stmt.setString(1, tarefaClone.getTitulo()+"(CLONE)");
 	            stmt.setString(2, tarefaClone.getDescricao());
 	            stmt.setString(3, tarefaClone.getPrioridade().name());
 	            stmt.setString(4, tarefaClone.isConcluida().name());
 	            stmt.executeUpdate();
-	            System.out.println("Tarefa adicionada com sucesso!");
-	            tarefaDTO.setAcao("adicionada");
+	            tarefaDTO.setAcao("clonada");
 	            notificarObservadores(tarefaDTO); //.
 	        } catch (SQLException e) {
 	            System.out.println("Falha ao adicionar a tarefa.");

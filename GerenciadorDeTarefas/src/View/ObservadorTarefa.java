@@ -6,27 +6,45 @@ import Model.TarefaDTO;
 import Observer.Observador;
 
 public class ObservadorTarefa implements Observador {
+	
+	private TarefaDTO tarefa;
+	
+	public ObservadorTarefa(TarefaDTO tarefa) {
+		this.tarefa = tarefa;
+	}
 
     @Override
-    public void atualizar(TarefaDTO tarefaDTO) {// pode usar coisas assim pra o strategy tbm
-        switch (tarefaDTO.getAcao()) {
+    public void atualizar() {
+        switch (this.tarefa.getAcao()) {
             case "adicionada":
-            	JOptionPane.showMessageDialog(null, "Nova tarefa adicionada!: " + tarefaDTO.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
-                new TelaGerenciadorDeTarefas("Tarefas");
-                // Código para atualizar a interface gráfica com a nova tarefa
+            	JOptionPane.showMessageDialog(null, "Nova tarefa adicionada!: " + this.tarefa.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+                new TelaGerenciadorDeTarefas("Tarefas", "");
+                
                 break;
             case "atualizada":
-            	JOptionPane.showMessageDialog(null, "Tarefa atualizada!: " + tarefaDTO.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
-            	new TelaGerenciadorDeTarefas("Tarefas");
-                // Código para atualizar a interface gráfica com as mudanças na tarefa
+            	JOptionPane.showMessageDialog(null, "Tarefa atualizada!: " + this.tarefa.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            	new TelaGerenciadorDeTarefas("Tarefas", "");
+            	
                 break;
             case "deletada":
-            	JOptionPane.showMessageDialog(null, "Tarefa deletada!: " + tarefaDTO.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
-            	new TelaGerenciadorDeTarefas("Tarefas");
-                // Código para atualizar a interface gráfica removendo a tarefa
+            	JOptionPane.showMessageDialog(null, "Tarefa deletada!: " + this.tarefa.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            	new TelaGerenciadorDeTarefas("Tarefas", "");
+            	
+                break;
+            case "clonada":
+            	JOptionPane.showMessageDialog(null, "Tarefa clonada!: " + this.tarefa.getTitulo(), "ALERTA", JOptionPane.INFORMATION_MESSAGE);
+            	new TelaGerenciadorDeTarefas("Tarefas", "");
+            	
                 break;
             default:
                 break;
         }
     }
+
+	public TarefaDTO getTarefa() {
+		return tarefa;
+	}
+    
+    
 }
+

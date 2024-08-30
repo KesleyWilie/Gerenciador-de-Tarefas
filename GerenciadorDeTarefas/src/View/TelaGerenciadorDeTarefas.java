@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import Controller.OuvinteTelaGerenciadorDeTarefas;
 import Controller.PopuladorTabelaTarefas;
 import Model.Prioridade;
+
 public class TelaGerenciadorDeTarefas extends JFrame {
 
 
@@ -29,10 +30,8 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 	private JButton botaoRemover;
 	private JButton botaoEditar;
 	private JButton botaoDetalhar;
-	private JButton botaoConcluir;
-	private JButton botaoClonar;
-
-	public TelaGerenciadorDeTarefas(String titulo) {
+	
+	public TelaGerenciadorDeTarefas(String titulo, String prioridade) {
 		setTitle(titulo);
 		setSize(700,615);
 		setLayout(null);
@@ -45,30 +44,26 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 		addRemover();
 		addEditar();
 		addDetalhar();
-		addConcluir();
-		addClonar();
 		addComboPrioridade();
-		populador = new PopuladorTabelaTarefas(tabela, modelo, painelTabela);
-		populador.popularTabelaTarefas("");
+		populador = new PopuladorTabelaTarefas(this);
+		populador.popularTabelaTarefas(prioridade);
 		setVisible(true);
 	}
 	
 	private void addGerenciador() {
 		JLabel jlPerfil = new JLabel("Gerenciador de Tarefas");
-		jlPerfil.setBounds(0,0,700,100);
+		jlPerfil.setBounds(0,-20,700,100);
 		jlPerfil.setHorizontalAlignment(JLabel.CENTER);
-		jlPerfil.setFont(new Font("Arial",Font.PLAIN,30));
+		jlPerfil.setFont(new Font("Arial",Font.BOLD,30));
 		add(jlPerfil);
 	}
-
-
-	//Falta Mudar Posição na tela;
+	
 	private void addComboPrioridade() {
-		prioridade = new JComboBox<>(new String[] {Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
-		prioridade.setBounds(130, 300,330,30);
+		prioridade = new JComboBox<>(new String[] {"-Selecionar-", "TODOS", Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
+		prioridade.setBounds(18, 60,650,30);
 		prioridade.setBackground(Cores.CINZA_CLARO_2);
 		prioridade.setForeground(Cores.CINZA_ESCURO_2);
-		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 26));
 		prioridade.setOpaque(true);
 		prioridade.setBorder(null);
 
@@ -145,42 +140,7 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 
 	        add(botaoDetalhar);
 	}
-
-	private void addConcluir() {
-		botaoConcluir = new JButton("Concluir");
-		//Setar posição na tela:...
-		botaoConcluir.setBounds(18, 520, 150, 40);
-		
-		botaoConcluir.setForeground(Color.WHITE);
-		botaoConcluir.setBackground(Cores.SHAPPHIRE);
-		botaoConcluir.setOpaque(true);
-		botaoConcluir.setBorder(null);
-		botaoConcluir.setFocusable(false);
-		OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
-		botaoConcluir.addActionListener(ouvinte);
-		
-
-		add(botaoConcluir);
- 	}
-
-	private void addClonar() {
-		botaoClonar = new JButton("Clona");
-		//Setar posição na tela:...
-		botaoClonar.setBounds(18, 520, 150, 40);
-
-		botaoClonar.setForeground(Color.WHITE);
-		botaoClonar.setBackground(Cores.SHAPPHIRE);
-		botaoClonar.setOpaque(true);
-		botaoClonar.setBorder(null);
-		botaoClonar.setFocusable(false);
-		OuvinteTelaGerenciadorDeTarefas ouvinte = new OuvinteTelaGerenciadorDeTarefas(this, prioridade);
-		botaoClonar.addActionListener(ouvinte);
-
-		add(botaoClonar);
- 	}
-
 	
-
 	public PopuladorTabelaTarefas getPopulador() {
 		return populador;
 	}
@@ -216,14 +176,5 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 	public JButton getBotaoDetalhar() {
 		return botaoDetalhar;
 	}
-
-	public JButton getBotaoConcluir() {
-		return botaoConcluir;
-	}
-
-	public JButton getBotaoClonar() {
-		return botaoClonar;
-	}
-
 	
 }

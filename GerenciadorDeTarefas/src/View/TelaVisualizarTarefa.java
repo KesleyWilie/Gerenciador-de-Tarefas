@@ -1,8 +1,7 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,6 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Controller.OuvinteTelaVisualizarTarefa;
 import Model.Prioridade;
 import Model.TarefaDTO;
 
@@ -23,6 +23,8 @@ public class TelaVisualizarTarefa extends JFrame{
 	private JTextArea textoDescricao;
 	private JComboBox<String> prioridade;
 	private JButton botaoVoltar; 
+	private JButton botaoConcluir;
+	private JButton botaoClonar;
 
 	public TelaVisualizarTarefa(String titulo, TarefaDTO tarefa) {
 		this.tarefa = tarefa;
@@ -39,7 +41,9 @@ public class TelaVisualizarTarefa extends JFrame{
 		addTextoDescricao();
 		addPrioridade();
 		addComboPrioridade();
-		addCancelar();
+		addVoltar();
+		addConcluir();
+		addClonar();
 		textoTitulo.setText(tarefa.getTitulo());
 		textoTitulo.setEditable(false);
 		textoDescricao.setText(tarefa.getDescricao());
@@ -85,6 +89,54 @@ public class TelaVisualizarTarefa extends JFrame{
         painelDesc.setBounds(130, 180, 330, 90);
         add(painelDesc);
     }
+	
+	private void addConcluir() {
+		botaoConcluir = new JButton("Concluir");
+		//Setar posição na tela:...
+		botaoConcluir.setBounds(350, 395, 120, 40);
+		
+		botaoConcluir.setForeground(Color.WHITE);
+		botaoConcluir.setBackground(Cores.SHAPPHIRE);
+		botaoConcluir.setOpaque(true);
+		botaoConcluir.setBorder(null);
+		botaoConcluir.setFocusable(false);
+		
+		OuvinteTelaVisualizarTarefa ouvinte = new OuvinteTelaVisualizarTarefa(this);
+		botaoConcluir.addActionListener(ouvinte);
+		
+		add(botaoConcluir);
+ 	}
+
+	private void addClonar() {
+		botaoClonar = new JButton("Clonar");
+		//Setar posição na tela:...
+		botaoClonar.setBounds(60, 395, 120, 40);
+
+		botaoClonar.setForeground(Color.WHITE);
+		botaoClonar.setBackground(Cores.SHAPPHIRE);
+		botaoClonar.setOpaque(true);
+		botaoClonar.setBorder(null);
+		botaoClonar.setFocusable(false);
+		
+		OuvinteTelaVisualizarTarefa ouvinte = new OuvinteTelaVisualizarTarefa(this);
+		botaoClonar.addActionListener(ouvinte);
+
+		add(botaoClonar);
+ 	}
+	
+	private void addVoltar() {
+        botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setBounds(205, 395, 120, 40);
+        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setBackground(Cores.SHAPPHIRE);
+        botaoVoltar.setOpaque(true);
+        botaoVoltar.setBorder(null);
+        botaoVoltar.setFocusable(false);
+        
+		OuvinteTelaVisualizarTarefa ouvinte = new OuvinteTelaVisualizarTarefa(this);
+		botaoVoltar.addActionListener(ouvinte);
+        add(botaoVoltar);
+	}
 
 	private void addPrioridade() {
 		JLabel prioridade = new JLabel("Prioridade: ");
@@ -98,26 +150,25 @@ public class TelaVisualizarTarefa extends JFrame{
 		prioridade.setBounds(130, 300,330,30);
 		prioridade.setBackground(Cores.CINZA_CLARO_2);
 		prioridade.setForeground(Cores.CINZA_ESCURO_2);
-		prioridade.setFont(new Font("Arial", Font.PLAIN, 35));
+		prioridade.setFont(new Font("Arial", Font.PLAIN, 26));
 		prioridade.setOpaque(true);
 		prioridade.setBorder(null);
 		add(prioridade);
 	}
 
-	private void addCancelar() {
-        botaoVoltar = new JButton("Voltar");
-        botaoVoltar.setBounds(205, 395, 120, 40);
-		OuvinteBotao ouvinte = new OuvinteBotao();
-		botaoVoltar.addActionListener(ouvinte);
-        add(botaoVoltar);
-	}
+	
 
 
 	
 	public TarefaDTO getTarefa() {
 		return tarefa;
 	}
+	
+	
 
+	public JButton getBotaoVoltar() {
+		return botaoVoltar;
+	}
 	public JTextField getTextoTitulo() {
 		return textoTitulo;
 	}
@@ -127,16 +178,13 @@ public class TelaVisualizarTarefa extends JFrame{
 	public JComboBox<String> getPrioridade() {
 		return prioridade;
 	}
+	
+	public JButton getBotaoConcluir() {
+		return botaoConcluir;
+	}
 
-
-	private class OuvinteBotao implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == botaoVoltar){
-				dispose();
-				new TelaGerenciadorDeTarefas("Gerenciador de Tarefas");
-			}
-				
-		}
- }
+	public JButton getBotaoClonar() {
+		return botaoClonar;
+	}
 
 }
