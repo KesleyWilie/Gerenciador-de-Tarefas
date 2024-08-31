@@ -9,6 +9,7 @@ public class TarefaDTO {
     private Prioridade prioridade;
     private Estado concluida;
 
+    //construtor da TarefaDTO
     public TarefaDTO(TarefaDTOBuilder builder) {
         this.id = builder.getId();
         this.titulo = builder.getTitulo();
@@ -16,10 +17,7 @@ public class TarefaDTO {
         this.prioridade = builder.getPrioridade();
         this.concluida = builder.isConcluida();
     }
-
-    public TarefaDTO() {
-    }
-
+    
     // Getters e Setters
     public int getId() { return id; }
     public String getTitulo() { return titulo; }

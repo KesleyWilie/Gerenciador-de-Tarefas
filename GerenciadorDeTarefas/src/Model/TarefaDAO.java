@@ -79,15 +79,6 @@ public class TarefaDAO implements Sujeito {
     // Método para adicionar tarefa
     public void adicionarTarefa(TarefaDTO tarefaDTO) {
     	
-    	//Se usarmos o padrao Builder na classe Tarefa ficaria desse modo:
-    	/*Tarefa tarefa = new Tarefa.TarefaBuilder()
-    			.setId(tarefaDTO.getId())
-    			.setTitulo(tarefaDTO.getTitulo())
-    			.setDescricao(tarefaDTO.getDescricao())
-    			.setPrioridade(tarefaDTO.getPrioridade())
-    			.setConcluida(tarefaDTO.isConcluida())
-    			.build();*/
-    	
     	Tarefa tarefa = new Tarefa(tarefaDTO);
     	
     	String sql = "INSERT INTO tarefas (titulo, descricao, prioridade, concluida) VALUES (?, ?, ?, ?)";
@@ -107,15 +98,6 @@ public class TarefaDAO implements Sujeito {
 
     // Método para atualizar tarefa
     public void atualizarTarefa(TarefaDTO tarefaDTO) {
-    	
-    	//Se usarmos o padrao Builder na classe Tarefa ficaria desse modo:
-    	/*Tarefa tarefa = new Tarefa.TarefaBuilder()
-    			.setId(tarefaDTO.getId())
-    			.setTitulo(tarefaDTO.getTitulo())
-    			.setDescricao(tarefaDTO.getDescricao())
-    			.setPrioridade(tarefaDTO.getPrioridade())
-    			.setConcluida(tarefaDTO.isConcluida())
-    			.build();*/
     	
     	Tarefa tarefa = new Tarefa(tarefaDTO);
     	
@@ -152,6 +134,8 @@ public class TarefaDAO implements Sujeito {
             e.printStackTrace();
         }
     }
+    
+    // Método para retorna uma lista de tarefas, referentes as tarefas salvas no banco de dados
     public List<TarefaDTO> listarTarefas() {
         List<TarefaDTO> tarefas = new ArrayList<>();
         String sql = "SELECT * FROM tarefas";
@@ -176,6 +160,7 @@ public class TarefaDAO implements Sujeito {
         return tarefas;
     }
     
+    // Método para mudar o estado de uma tarefa e atualizar a mesma no banco
     public void alterarEstadoDaTarefa(TarefaDTO tarefaDTO) {
     	Tarefa tarefa = recuperarTarefa(tarefaDTO);
     	if(tarefa!=null) {
@@ -200,6 +185,7 @@ public class TarefaDAO implements Sujeito {
     	}
 	}
     
+    // Método para salvar uma tarefa clone no banco
     public void clonarTarefa(TarefaDTO tarefaDTO) {
     	Tarefa originalTarefa = recuperarTarefa(tarefaDTO);
     	if(originalTarefa!=null) {
@@ -223,33 +209,8 @@ public class TarefaDAO implements Sujeito {
     	
 	}
     
+    //recuperar uma unica tarefa:
     public Tarefa recuperarTarefa(TarefaDTO tarefa) {
-    	//Falta recuperar a tarefa no banco de dados
-        String sql = "SELECT * FROM tarefas";
-
-        try (PreparedStatement stmt = conexao.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                TarefaDTO tarefaDTO = new TarefaDTOBuilder()
-                        .setId(rs.getInt("id"))
-                        .setTitulo(rs.getString("titulo"))
-                        .setDescricao(rs.getString("descricao"))
-                        .setPrioridade(Prioridade.valueOf(rs.getString("prioridade")))
-                        .setConcluida(Estado.valueOf(rs.getString("concluida")))
-                        .build();
-                if(tarefaDTO.getId()==tarefa.getId()) {
-                	return new Tarefa(tarefaDTO);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Falha ao listar as tarefas.");
-            e.printStackTrace();
-        }
-    	return null;
-    }
-    /*recuperar uma unica tarefa:
-     *  public Tarefa recuperarTarefa(TarefaDTO tarefa) {
         String sql = "SELECT * FROM tarefas WHERE id = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, tarefa.getId());
@@ -268,12 +229,10 @@ public class TarefaDAO implements Sujeito {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null
+        return null;
+    }
      
-     */
-    
-    
-    
+    // Método para retorna uma lista de tarefas, referentes as tarefas salvas no banco de dados, dependendo da prioridade das tarefas
     public List<TarefaDTO> obterTarefasPorPrioridade(String prioridade) {
         List<TarefaDTO> tarefas = new ArrayList<>();
         String sql = "SELECT * FROM tarefas WHERE prioridade = ?";
@@ -296,7 +255,8 @@ public class TarefaDAO implements Sujeito {
         }
         return tarefas;
     }
-
+    
+    // Método para retorna uma lista de tarefas, referentes as tarefas salvas no banco de dados, dependendo do estados das tarefas
     public List<TarefaDTO> obterTarefasPorEstado(String estado) {
         List<TarefaDTO> tarefas = new ArrayList<>();
         String sql = "SELECT * FROM tarefas WHERE concluida = ?";
@@ -321,19 +281,7 @@ public class TarefaDAO implements Sujeito {
     }
 	public static TarefaDAO getTarefaDAO() {
 		return tarefaDAO;
-	}
-    
-    /*public void adicionarClone(Tarefa tarefa) {
-    	adicionarTarefa(new TarefaDTOBuilder()
-   			.setId(tarefa.getId())
-   			.setTitulo(tarefa.getTitulo())
-   			.setDescricao(tarefa.getDescricao())
-   			.setPrioridade(tarefa.getPrioridade())
-   			.setConcluida(tarefa.isConcluida())
-   			.build());
-	}*/
-    
-    
+	}  
     
 }
 
