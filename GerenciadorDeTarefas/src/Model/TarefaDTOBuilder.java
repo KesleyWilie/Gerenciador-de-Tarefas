@@ -10,7 +10,7 @@ public class TarefaDTOBuilder {
     private Prioridade prioridade;
     private Estado concluida = Estado.Em_Andamento;
     
-        
+    //Metodos gets para as propriedades da TarefaDTO 
     public TarefaDTOBuilder setId(int id) {
         this.id = id;
         return this;
