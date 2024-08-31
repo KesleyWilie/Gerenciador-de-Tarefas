@@ -9,7 +9,7 @@ public class ConexaoBancoDados { //Singleton
     private Connection conexao;
     private String url = "jdbc:mysql://localhost:3306/taskdb"; // nome do banco de dados
     private String usuario = "root"; // nome de usuário do MySQL
-    private String senha = "Deda_BD69";  // senha do MySQL
+    private String senha = "senha";  // senha do MySQL
 
     private ConexaoBancoDados() {
         try {
@@ -47,19 +47,6 @@ public class ConexaoBancoDados { //Singleton
     	descricao TEXT,
     	prioridade ENUM('BAIXA', 'MEDIA', 'ALTA') NOT NULL,
     	concluida ENUM('Em_Andamento', 'Concluida') DEFAULT 'Em_Andamento'
-	);
-    
-	acho que pode ficar assim:
-	----------------------------------------------------------------------------------
-		CREATE DATABASE IF NOT EXISTS taskdb;
-	USE taskdb;
-	
-	CREATE TABLE IF NOT EXISTS tarefas (
-	    id INT AUTO_INCREMENT PRIMARY KEY,
-	    titulo VARCHAR(255) NOT NULL,
-	    descricao TEXT,
-	    prioridade ENUM('ALTA', 'MEDIA', 'BAIXA') NOT NULL,
-	    concluida ENUM('NAO_INICIADA', 'EM_PROGRESSO', 'CONCLUIDA') NOT NULL
 	);
 
 --------------------------------------------------------------------
