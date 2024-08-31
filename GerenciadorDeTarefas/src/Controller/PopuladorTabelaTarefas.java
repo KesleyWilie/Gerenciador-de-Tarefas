@@ -7,6 +7,13 @@ import javax.swing.table.DefaultTableCellRenderer;
 import Model.TarefaDAO;
 import Model.TarefaDTO;
 import View.TelaGerenciadorDeTarefas;
+import strategy.ContextoFiltro;
+import strategy.FiltroConcluidas;
+import strategy.FiltroNaoIniciadas;
+import strategy.FiltroPrioridadeAlta;
+import strategy.FiltroPrioridadeBaixa;
+import strategy.FiltroPrioridadeMedia;
+import strategy.FiltroTodas;
 
 public class PopuladorTabelaTarefas {
 	
@@ -21,13 +28,23 @@ public class PopuladorTabelaTarefas {
     }
 
     public void popularTabelaTarefas(String prioridade) {
+    	ContextoFiltro filtro = new ContextoFiltro();
     	
-    	if(prioridade.equalsIgnoreCase("TODOS") || prioridade.equalsIgnoreCase("")) {
-    		tarefasAtuais = tarefaDAO.listarTarefas();
-    	} else {
-    		tarefasAtuais = tarefaDAO.obterTarefasPorPrioridade(prioridade);
-    	}
+    	if (prioridade.equals("ALTA")) {
+    		filtro.setFiltro(new FiltroPrioridadeAlta());
+        } else if (prioridade.equals("MEDIA")) {
+        	filtro.setFiltro(new FiltroPrioridadeMedia());
+        } else if (prioridade.equals("BAIXA")) {
+        	filtro.setFiltro(new FiltroPrioridadeBaixa());
+        } else if (prioridade.equals("Concluídas")) {
+        	filtro.setFiltro(new FiltroConcluidas());
+        } else if (prioridade.equals("Não Iniciadas")) {
+        	filtro.setFiltro(new FiltroNaoIniciadas());
+        } else {
+        	filtro.setFiltro(new FiltroTodas());
+        }
 
+    	tarefasAtuais = filtro.filtrar();
 
         for(TarefaDTO tarefa: tarefasAtuais){
             adicionarLinhaTabelaTarefas(tarefa);
