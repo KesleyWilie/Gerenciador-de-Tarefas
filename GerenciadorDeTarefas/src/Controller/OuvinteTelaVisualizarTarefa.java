@@ -3,7 +3,7 @@ package Controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Model.TarefaDAO;
+import DAO.TarefaDAO;
 import Model.TarefaDTO;
 import View.ObservadorTarefa;
 import View.TelaGerenciadorDeTarefas;

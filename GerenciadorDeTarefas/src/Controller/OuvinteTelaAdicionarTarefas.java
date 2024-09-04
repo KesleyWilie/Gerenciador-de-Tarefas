@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import DAO.TarefaDAO;
 import Model.Prioridade;
-import Model.TarefaDAO;
 import Model.TarefaDTO;
 import Model.TarefaDTOBuilder;
 import View.ObservadorTarefa;
@@ -51,10 +51,12 @@ public class OuvinteTelaAdicionarTarefas implements ActionListener{
     		
     		tarefa = new TarefaDTOBuilder()
     				.setTitulo(titulo)
-    				.setDescricao(descricao)
     				.setPrioridade(prioridadeEnum)
     				.build();
     		
+    		if(descricao!=null) {
+    			tarefa.setDescricao(descricao);
+    		}
     		
     		ObservadorTarefa observador = new ObservadorTarefa(tarefa);
     		tarefaDAO.adicionarObservador("adicionada",observador);

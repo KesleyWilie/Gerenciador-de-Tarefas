@@ -4,16 +4,16 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
-import Model.TarefaDAO;
+import DAO.TarefaDAO;
+import Model.ContextoFiltro;
+import Model.FiltroConcluidas;
+import Model.FiltroNaoIniciadas;
+import Model.FiltroPrioridadeAlta;
+import Model.FiltroPrioridadeBaixa;
+import Model.FiltroPrioridadeMedia;
+import Model.FiltroTodas;
 import Model.TarefaDTO;
 import View.TelaGerenciadorDeTarefas;
-import strategy.ContextoFiltro;
-import strategy.FiltroConcluidas;
-import strategy.FiltroNaoIniciadas;
-import strategy.FiltroPrioridadeAlta;
-import strategy.FiltroPrioridadeBaixa;
-import strategy.FiltroPrioridadeMedia;
-import strategy.FiltroTodas;
 
 public class PopuladorTabelaTarefas {
 	

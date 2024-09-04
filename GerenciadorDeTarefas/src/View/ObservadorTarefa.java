@@ -2,8 +2,8 @@ package View;
 
 import javax.swing.JOptionPane;
 
+import Model.Observador;
 import Model.TarefaDTO;
-import Observer.Observador;
 
 public class ObservadorTarefa implements Observador {
 	

@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import Model.TarefaDAO;
+import DAO.TarefaDAO;
 import Model.TarefaDTO;
 import View.ObservadorTarefa;
 import View.TelaAdicionarTarefas;
