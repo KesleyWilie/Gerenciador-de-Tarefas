@@ -8,6 +8,6 @@ public class FiltroEmProgresso implements FiltroTarefa {
     @Override
     public List<TarefaDTO> filtrar() {
         TarefaDAO dao = new TarefaDAO();
-        return dao.obterTarefasPorEstado("EM_PROGRESSO");
+        return dao.obterTarefasPorEstado("Em_Andamento");
     }
 }
