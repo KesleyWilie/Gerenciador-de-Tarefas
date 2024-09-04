@@ -4,16 +4,17 @@ import java.util.List;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
-import Model.TarefaDAO;
+import DAO.TarefaDAO;
+import Model.ContextoFiltro;
+import Model.FiltroConcluidas;
+import Model.FiltroEmProgresso;
+import Model.FiltroNaoIniciadas;
+import Model.FiltroPrioridadeAlta;
+import Model.FiltroPrioridadeBaixa;
+import Model.FiltroPrioridadeMedia;
+import Model.FiltroTodas;
 import Model.TarefaDTO;
 import View.TelaGerenciadorDeTarefas;
-import strategy.ContextoFiltro;
-import strategy.FiltroConcluidas;
-import strategy.FiltroNaoIniciadas;
-import strategy.FiltroPrioridadeAlta;
-import strategy.FiltroPrioridadeBaixa;
-import strategy.FiltroPrioridadeMedia;
-import strategy.FiltroTodas;
 
 public class PopuladorTabelaTarefas {
 	
@@ -36,10 +37,10 @@ public class PopuladorTabelaTarefas {
         	filtro.setFiltro(new FiltroPrioridadeMedia());
         } else if (prioridade.equals("BAIXA")) {
         	filtro.setFiltro(new FiltroPrioridadeBaixa());
-        } else if (prioridade.equals("Concluídas")) {
+        } else if (prioridade.equals("Concluida")) {
         	filtro.setFiltro(new FiltroConcluidas());
-        } else if (prioridade.equals("Não Iniciadas")) {
-        	filtro.setFiltro(new FiltroNaoIniciadas());
+        } else if (prioridade.equals("Em_Andamento")) {
+        	filtro.setFiltro(new FiltroEmProgresso());
         } else {
         	filtro.setFiltro(new FiltroTodas());
         }

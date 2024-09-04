@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import DAO.TarefaDAO;
 import Model.Prioridade;
-import Model.TarefaDAO;
 import Model.TarefaDTO;
 import View.ObservadorTarefa;
 import View.TelaEditarTarefa;

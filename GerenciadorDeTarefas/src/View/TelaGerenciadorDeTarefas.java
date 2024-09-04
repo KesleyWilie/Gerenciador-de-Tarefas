@@ -13,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 
 import Controller.OuvinteTelaGerenciadorDeTarefas;
 import Controller.PopuladorTabelaTarefas;
+import Model.Estado;
+import Model.EstadoDaTarefa;
 import Model.Prioridade;
 
 public class TelaGerenciadorDeTarefas extends JFrame {
@@ -59,7 +61,7 @@ public class TelaGerenciadorDeTarefas extends JFrame {
 	}
 	
 	private void addComboPrioridade() {
-		prioridade = new JComboBox<>(new String[] {"-Selecionar-", "TODOS", Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name()});
+		prioridade = new JComboBox<>(new String[] {"-Selecionar-", "TODOS", Prioridade.ALTA.name(), Prioridade.MEDIA.name(), Prioridade.BAIXA.name(),Estado.Concluida.name(), Estado.Em_Andamento.name()});
 		prioridade.setBounds(18, 60,650,30);
 		prioridade.setBackground(Cores.CINZA_CLARO_2);
 		prioridade.setForeground(Cores.CINZA_ESCURO_2);
